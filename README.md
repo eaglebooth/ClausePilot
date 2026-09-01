@@ -37,3 +37,7 @@ Writes: `register_agreement`, `accept_agreement`, `add_obligation`, `open_due_ch
 Views: `get_agreement`, `get_obligation`, `get_checkpoint`, `get_totals`.
 
 See [SPEC.md](SPEC.md) and [docs/THREAT_MODEL.md](docs/THREAT_MODEL.md) for exact claims and limitations.
+
+Pre-deployment checks and public fixture digests are recorded in
+[docs/PREDEPLOY_VERIFICATION.md](docs/PREDEPLOY_VERIFICATION.md). Live release
+evidence remains pending until a final Studionet deployment exists.
