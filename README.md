@@ -2,6 +2,8 @@
 
 ClausePilot is a GenLayer temporal commercial assurance primitive. It binds a bounded obligation to an agreement version, counterparty, approved public source and sealed checkpoint schedule. Validators independently fetch and interpret evidence; deterministic code controls provenance, lifecycle and standing updates.
 
+Production: [clausepilot-seven.vercel.app](https://clausepilot-seven.vercel.app) · [Live monitor](https://clausepilot-seven.vercel.app/monitor)
+
 ## Why GenLayer
 
 External publications often express incidents, certification scope and operational status in unstructured language. The consequential semantic question cannot be reduced to a stable numeric oracle, while source authority, timestamps and lifecycle remain deterministic contract rules.

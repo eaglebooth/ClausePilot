@@ -5,12 +5,16 @@ Status: **LIVE PATHS VERIFIED — 2026-09-01**
 ## Release identity
 
 - Repository: <https://github.com/eaglebooth/ClausePilot>
+- Production frontend: <https://clausepilot-seven.vercel.app>
+- Production monitor: <https://clausepilot-seven.vercel.app/monitor>
+- Vercel deployment ID: `dpl_88B4oYWkq5CVFtsfUdDbwLuxvp3D` (`READY`, production)
 - Reviewed source commit: [`1b062313e06dc257bf9f0dfc9b137dc7e26cdf67`](https://github.com/eaglebooth/ClausePilot/commit/1b062313e06dc257bf9f0dfc9b137dc7e26cdf67)
 - Contract: [`0x36CdaD2E787f09e125d462764389c317616C5c94`](https://explorer-studio.genlayer.com/address/0x36CdaD2E787f09e125d462764389c317616C5c94)
 - Commit-pinned contract source: [raw `ClausePilot.py`](https://raw.githubusercontent.com/eaglebooth/ClausePilot/1b062313e06dc257bf9f0dfc9b137dc7e26cdf67/contracts/ClausePilot.py)
 - Source size: `18,535` bytes
 - Source SHA-256: `28e67e91d5d6f8d90569970b102c09089dc4f51a608a655215afe925a3f6828d`
 - Source-parity qualification: the raw GitHub source was independently downloaded and matched the reviewed local bytes and digest before deployment. The current client does not expose deployed source bytes, so this document does not claim an independent post-deployment byte comparison. Runtime ABI and all documented state transitions were verified against the address above.
+- Frontend smoke test: both `/` and `/monitor` returned HTTP `200`; `/monitor` rendered the final contract address and the `HOW IT WORKS` onboarding section.
 
 ## Verification commands
 
