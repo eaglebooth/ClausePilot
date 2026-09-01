@@ -31,11 +31,13 @@ def test_unresolved_checkpoint_is_retryable_but_assessed_is_terminal():
     assert 'checkpoint.status = "ASSESSED"' in SOURCE
 
 
-def test_validator_refetches_and_rejudges():
-    validator = SOURCE.split("def validator_fn", 1)[1].split("raw = gl.vm", 1)[0]
-    assert "_fetch(url, marker)" in validator
-    assert "gl.nondet.exec_prompt" in validator
-    assert 'leader.get("sha256") != evidence.get("sha256")' in validator
+def test_validators_independently_fetch_and_apply_comparative_consensus():
+    evaluate = SOURCE.split("def evaluate", 1)[1].split("principle =", 1)[0]
+    assert "_fetch(url, marker)" in evaluate
+    assert "gl.nondet.exec_prompt" in evaluate
+    assert "gl.eq_principle.prompt_comparative(evaluate, principle)" in SOURCE
+    assert "scope_relation, coverage and semantic_state must match exactly" in SOURCE
+    assert "gl.eq_principle.strict_eq" not in SOURCE
 
 
 def test_no_custody_or_legal_damages_surface():

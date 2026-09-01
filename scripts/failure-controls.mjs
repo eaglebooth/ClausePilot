@@ -3,10 +3,23 @@ import { studionet } from "genlayer-js/chains";
 import { TransactionStatus } from "genlayer-js/types";
 
 const contract = process.env.CLAUSEPILOT_CONTRACT_ADDRESS?.trim();
-const rawKey = process.env.CLAUSEPILOT_ATTACKER_PRIVATE_KEY?.trim();
+let rawKey = process.env.CLAUSEPILOT_ATTACKER_PRIVATE_KEY?.trim() || "";
 if (!contract || !/^0x[0-9a-fA-F]{40}$/.test(contract)) throw new Error("Missing/invalid CLAUSEPILOT_CONTRACT_ADDRESS");
-if (!rawKey) throw new Error("Missing CLAUSEPILOT_ATTACKER_PRIVATE_KEY");
+async function readSecretLine() {
+  if (process.stdin.isTTY && process.stdin.setRawMode) process.stdin.setRawMode(true);
+  process.stdin.resume(); let value = "";
+  for await (const chunk of process.stdin) {
+    for (const character of String(chunk)) {
+      if (character === "\r" || character === "\n") { if (value) { if (process.stdin.isTTY && process.stdin.setRawMode) process.stdin.setRawMode(false); return value.trim(); } }
+      else value += character;
+    }
+  }
+  return value.trim();
+}
+if (!rawKey) rawKey = await readSecretLine();
+if (!rawKey) throw new Error("Pass attacker private key as stdin");
 const account = createAccount(rawKey.startsWith("0x") ? rawKey : `0x${rawKey}`);
+rawKey = "";
 const client = createClient({ chain: studionet, account });
 
 async function read(functionName, args = []) {

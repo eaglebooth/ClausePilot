@@ -1,17 +1,27 @@
 type RecordValue = Record<string, unknown>;
 
-function walk(value: unknown, seen = new Set<unknown>()): unknown[] {
-  if (value === null || value === undefined || seen.has(value)) return [];
-  if (typeof value !== "object") return [value];
-  seen.add(value);
-  const record = value as RecordValue;
-  const preferred = ["readable", "returnValue", "return_value", "result", "data", "calldata", "output"];
-  return [...preferred.flatMap((key) => key in record ? walk(record[key], seen) : []), ...Object.values(record).flatMap((item) => walk(item, seen))];
+function candidates(source: unknown): unknown[] {
+  if (!source || typeof source !== "object") return [source];
+  const record = source as RecordValue;
+  const consensus = record.consensus_data as RecordValue | undefined;
+  const leaders = consensus?.leader_receipt;
+  const result = record.result as RecordValue | undefined;
+  const payload = result?.payload as RecordValue | undefined;
+  return [
+    ...(Array.isArray(leaders) ? leaders.flatMap((leader) => candidates(leader)) : []),
+    payload?.readable,
+    result?.readable,
+    record.returnValue,
+    record.return_value,
+    record.output,
+    record.readable,
+    typeof result === "string" ? result : undefined,
+  ];
 }
 
 export function decodeReturnedId(...sources: unknown[]): string {
   for (const source of sources) {
-    for (const candidate of walk(source)) {
+    for (const candidate of candidates(source)) {
       if (typeof candidate === "number" && Number.isSafeInteger(candidate) && candidate >= 0) return String(candidate);
       if (typeof candidate === "bigint" && candidate >= BigInt(0)) return candidate.toString();
       if (typeof candidate !== "string") continue;
