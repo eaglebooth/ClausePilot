@@ -1,6 +1,9 @@
 # ClausePilot Studionet release evidence
 
-Status: **NOT YET DEPLOYED — template only**
+Status: **ARCHIVED TEMPLATE**
+
+The live verified release is documented in [RELEASE_EVIDENCE.md](RELEASE_EVIDENCE.md).
+This file is retained only as a reusable checklist and contains no release claims.
 
 ## Release identity
 

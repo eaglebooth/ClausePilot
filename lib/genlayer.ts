@@ -15,7 +15,8 @@ type RuntimeClient = {
   getTransaction:(args:{hash:`0x${string}`})=>Promise<Record<string,unknown>>;
 };
 export type Result={success:boolean;data?:unknown;hash?:string;error?:string;receipt?:Record<string,unknown>;transaction?:Record<string,unknown>};
-const address=()=>process.env.NEXT_PUBLIC_CONTRACT_ADDRESS||"";
+const ACTIVE_STUDIONET_CONTRACT="0x36CdaD2E787f09e125d462764389c317616C5c94";
+const address=()=>process.env.NEXT_PUBLIC_CONTRACT_ADDRESS||ACTIVE_STUDIONET_CONTRACT;
 export const contractAddress=address;
 export const explorerUrl=()=>`${process.env.NEXT_PUBLIC_EXPLORER_BASE||"https://explorer-studio.genlayer.com/address/"}${address()}`;
 export async function connectWallet():Promise<Result>{

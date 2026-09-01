@@ -1,6 +1,7 @@
 import { createAccount, createClient } from "genlayer-js";
 import { studionet } from "genlayer-js/chains";
 import { TransactionStatus } from "genlayer-js/types";
+import { transactionResultNumberToName } from "genlayer-js/types";
 
 const contract = process.env.CLAUSEPILOT_CONTRACT_ADDRESS?.trim();
 let rawKey = process.env.CLAUSEPILOT_ATTACKER_PRIVATE_KEY?.trim() || "";
@@ -28,9 +29,15 @@ async function read(functionName, args = []) {
   return typeof value?.result === "string" ? JSON.parse(value.result) : (value?.result ?? value);
 }
 
-function containsRollback(value) {
-  const text = JSON.stringify(value).toUpperCase();
-  return text.includes("ROLLBACK") || text.includes("ERROR") || text.includes("FAILED");
+function rollbackReason(transaction) {
+  const leader = transaction?.consensus_data?.leader_receipt?.[0];
+  const execution = String(leader?.execution_result ?? "").toUpperCase();
+  const resultStatus = String(leader?.result?.status ?? "").toUpperCase();
+  const consensusResult = String(transaction?.resultName ?? transactionResultNumberToName?.[String(transaction?.result)] ?? "").toUpperCase();
+  if (execution && execution !== "SUCCESS") return String(leader?.result?.payload?.readable ?? leader?.result?.payload ?? leader?.error_description ?? execution);
+  if (["ROLLBACK", "ERROR", "FAILED"].some((part) => resultStatus.includes(part))) return String(leader?.result?.payload?.readable ?? leader?.result?.payload ?? resultStatus);
+  if (consensusResult && !["AGREE", "MAJORITY_AGREE"].includes(consensusResult)) return `consensus result ${consensusResult}`;
+  return "";
 }
 
 async function expectRollback(label, functionName, args) {
@@ -38,10 +45,11 @@ async function expectRollback(label, functionName, args) {
   const hash = await client.writeContract({ address: contract, functionName, args, value: 0n });
   const receipt = await client.waitForTransactionReceipt({ hash, status: TransactionStatus.FINALIZED, interval: 2000, retries: 300 });
   let transaction = receipt; try { transaction = await client.getTransaction({ hash }); } catch {}
-  if (!containsRollback(transaction) && !containsRollback(receipt)) throw new Error(`${label}: expected rollback`);
+  const reason = rollbackReason(transaction);
+  if (!reason) throw new Error(`${label}: expected rollback`);
   const after = await read("get_totals");
   if (JSON.stringify(before) !== JSON.stringify(after)) throw new Error(`${label}: rejected write mutated totals`);
-  return { label, hash, before, after };
+  return { label, hash, reason, before, after };
 }
 
 const results = [];
