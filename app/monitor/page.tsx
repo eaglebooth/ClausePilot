@@ -1,7 +1,8 @@
 "use client";
 import { useCallback, useState } from "react";
 import Link from "next/link";
-import { Activity, ArrowLeft, ExternalLink, FileKey2, LoaderCircle, Plus, Radar, RefreshCw, ScanSearch, ShieldAlert, Wallet, Workflow } from "lucide-react";
+import Image from "next/image";
+import { Activity, ArrowLeft, ExternalLink, FileKey2, LoaderCircle, Plus, RefreshCw, ScanSearch, ShieldAlert, Wallet, Workflow } from "lucide-react";
 import { connectWallet, contractAddress, explorerUrl, readContract, unwrap, writeContract } from "@/lib/genlayer";
 import { decodeReturnedId } from "@/lib/receipt";
 
@@ -17,7 +18,7 @@ export default function Monitor(){
   const connect=useCallback(async()=>{const result=await connectWallet();if(result.success)setWallet(String(result.data));else setNotice({tone:"error",text:result.error||"Wallet connection failed."});},[]);
   const sync=useCallback(async()=>{setNotice({tone:"pending",text:"Reading authoritative contract state…"});const result=await readContract("get_totals");if(!result.success){setNotice({tone:"error",text:result.error||"Read failed."});return;}const parsed=unwrap<Totals>(result.data);if(!parsed){setNotice({tone:"error",text:"Contract returned an unreadable totals payload."});return;}setTotals(parsed);setNotice({tone:"ok",text:"Contract state synchronized."});},[]);
   async function submit(label:string,method:string,args:unknown[],onId?:(id:string)=>void){setNotice({tone:"pending",text:`${label}: waiting for finality and consensus…`});const result=await writeContract(method,args);if(!result.success){setNotice({tone:"error",text:result.error||`${label} failed.`});return;}try{if(onId){const id=decodeReturnedId(result.transaction,result.receipt,result.data);onId(id);}await sync();setNotice({tone:"ok",text:`${label} finalized and reconciled with contract readback.${result.hash?` Tx ${result.hash.slice(0,10)}…`:""}`});}catch(error){setNotice({tone:"error",text:error instanceof Error?error.message:"Finalized return could not be verified."});}}
-  return <main className="console"><header><Link className="brand" href="/"><span><Radar/></span>ClausePilot</Link><Link className="back" href="/"><ArrowLeft/> Product</Link><div className="consoleActions"><a href={explorerUrl()} target="_blank" aria-label="Open explorer"><ExternalLink/></a><button onClick={connect}><Wallet/>{wallet?`${wallet.slice(0,6)}…${wallet.slice(-4)}`:"Connect wallet"}</button></div></header>
+  return <main className="console"><header><Link className="brand" href="/"><Image className="brandLogo" src="/clausepilot-logo.jpg" alt="" width={36} height={36} priority/>ClausePilot</Link><Link className="back" href="/"><ArrowLeft/> Product</Link><div className="consoleActions"><a href={explorerUrl()} target="_blank" aria-label="Open explorer"><ExternalLink/></a><button onClick={connect}><Wallet/>{wallet?`${wallet.slice(0,6)}…${wallet.slice(-4)}`:"Connect wallet"}</button></div></header>
     <section className="consoleHero"><div><small>OBLIGATION CONTROL PLANE</small><h1>Observe what the agreement requires.</h1><p>Every write waits for finality, consensus and authoritative readback.</p></div><button className="sync" onClick={sync} disabled={busy}><RefreshCw/> Sync contract</button></section>
     <section className="ledger"><div><small>ACTIVE CONTRACT</small><b>{contractAddress()||"NOT CONFIGURED"}</b></div><div><small>AGREEMENTS</small><b>{totals?.agreements??"—"}</b></div><div><small>OBLIGATIONS</small><b>{totals?.obligations??"—"}</b></div><div><small>CHECKPOINTS</small><b>{totals?.checkpoints??"—"}</b></div></section>
     {notice&&<div className={`notice ${notice.tone}`}>{notice.tone==="pending"?<LoaderCircle className="spin"/>:notice.tone==="error"?<ShieldAlert/>:<Activity/>}<span>{notice.text}</span></div>}
