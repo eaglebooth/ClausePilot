@@ -8,12 +8,12 @@ ClausePilot does not determine legal liability, damages, enforceability or facts
 
 ## Architecture
 
-The agreement owner registers an agreement digest and counterparty. The named counterparty must accept that exact record before the owner can add obligations with an authority origin, evidence URL, object marker, cadence and observation window. Anyone may open a due checkpoint. Validators independently fetch the same authorized URL and independently judge the bounded semantic relation. Deterministic code enforces agreement version, checkpoint uniqueness, source origin, schedule, schema consistency and append-only standing.
+The agreement owner registers an agreement digest and counterparty. The named counterparty first accepts that agreement record. The owner may then add an obligation with an authority origin, evidence URL, object marker, cadence and observation window. The contract hashes the parties and every consequential agreement and obligation field into `terms_digest`; the named counterparty must read and submit that exact digest to accept the obligation before anyone may open a checkpoint. A mismatched digest rolls back. Validators may assess only after the sealed observation window has ended, then independently fetch the authorized URL and judge the bounded semantic relation. Deterministic code enforces consent, agreement version, checkpoint uniqueness, source origin, schedule, observation timing, schema consistency and append-only standing.
 
 ## State model
 
 - Agreement: active or inactive; immutable registered version in MVP.
-- Obligation: active/inactive, due sequence, current standing and latest assessed checkpoint.
+- Obligation: immutable terms digest, counterparty acceptance timestamp, active/inactive status, due sequence, current standing and latest assessed checkpoint.
 - Checkpoint: `OPEN`, `ASSESSED` or `UNRESOLVED`.
 - Semantic standing: `SATISFIED`, `AT_RISK`, `BREACHED`, `UNRESOLVED`.
 

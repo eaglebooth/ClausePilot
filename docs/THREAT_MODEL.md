@@ -17,11 +17,14 @@ Agreement identity, counterparty binding, source policy, checkpoint sequence, se
 ## Controls
 
 - exact normalized HTTPS origin and URL prefix;
-- explicit counterparty acceptance before any obligation can be registered;
+- two-stage counterparty consent: agreement acceptance, then acceptance of an
+  immutable digest covering the exact obligation, source policy and schedule;
 - required object marker and validator-local fetched snapshot hash;
 - independent validator refetch and semantic recomputation;
 - immutable agreement-version and checkpoint-sequence binding; a new agreement
   version is a new agreement record in the MVP;
+- checkpoints cannot open before exact obligation consent and cannot be assessed
+  before the sealed observation window ends;
 - positive results require scope match and sufficient coverage;
 - source/model failure becomes `UNRESOLVED`;
 - frontend decodes finalized return IDs and reconciles authoritative readback.

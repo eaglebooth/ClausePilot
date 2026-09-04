@@ -12,8 +12,8 @@ def test_exact_genvm_header():
 
 def test_public_surface_is_present():
     for method in (
-        "register_agreement", "accept_agreement", "add_obligation", "open_due_checkpoint",
-        "assess_checkpoint", "close_obligation", "get_agreement",
+        "register_agreement", "accept_agreement", "add_obligation", "accept_obligation", "open_due_checkpoint",
+        "assess_checkpoint", "close_obligation", "get_contract_version", "get_agreement",
         "get_obligation", "get_checkpoint", "get_totals",
     ):
         assert f"def {method}(" in SOURCE
@@ -52,7 +52,26 @@ def test_receipt_ids_are_returned_by_create_methods():
     assert "return checkpoint_id" in SOURCE
 
 
-def test_counterparty_consent_precedes_obligation_creation():
+def test_counterparty_accepts_exact_immutable_obligation_before_checkpoint():
     assert 'raise gl.vm.UserError("COUNTERPARTY_ONLY")' in SOURCE
     assert 'raise gl.vm.UserError("AGREEMENT_NOT_ACCEPTED")' in SOURCE
     assert "agreement.accepted = True" in SOURCE
+    assert "def _obligation_terms_digest(" in SOURCE
+    assert "terms_digest=terms_digest, accepted=False" in SOURCE
+    assert "def accept_obligation(" in SOURCE
+    assert 'raise gl.vm.UserError("TERMS_DIGEST_MISMATCH")' in SOURCE
+    assert "obligation.accepted = True" in SOURCE
+    assert 'raise gl.vm.UserError("OBLIGATION_NOT_ACCEPTED")' in SOURCE
+
+
+def test_frontend_can_fail_closed_on_contract_schema_version():
+    assert "def get_contract_version(" in SOURCE
+    assert '"consent_schema": "exact-obligation-digest"' in SOURCE
+
+
+def test_assessment_waits_for_complete_sealed_observation_window():
+    assessment = SOURCE.split("def assess_checkpoint", 1)[1].split("def close_obligation", 1)[0]
+    gate = 'if now < int(checkpoint.window_end):'
+    assert gate in assessment
+    assert 'raise gl.vm.UserError("OBSERVATION_WINDOW_OPEN")' in assessment
+    assert assessment.index(gate) < assessment.index("def evaluate")

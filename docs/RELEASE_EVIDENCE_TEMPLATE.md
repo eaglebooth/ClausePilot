@@ -2,8 +2,8 @@
 
 Status: **ARCHIVED TEMPLATE**
 
-The live verified release is documented in [RELEASE_EVIDENCE.md](RELEASE_EVIDENCE.md).
-This file is retained only as a reusable checklist and contains no release claims.
+Historical V1 evidence is documented in [RELEASE_EVIDENCE.md](RELEASE_EVIDENCE.md).
+This file is the checklist for the pending V2 deployment and contains no release claims.
 
 ## Release identity
 
@@ -25,6 +25,8 @@ Record exact tool versions, commands, pass/fail/skipped counts and warnings.
 | Positive contradiction | `BREACHED` | Pending | Pending |
 | Unavailable/mismatched source | `UNRESOLVED` | Pending | Pending |
 | Retry unresolved | terminal safe result | Pending | Pending |
+| Wrong obligation terms digest | `TERMS_DIGEST_MISMATCH` rollback | Pending | Pending |
+| Assessment before window end | `OBSERVATION_WINDOW_OPEN` rollback | Pending | Pending |
 | Replay/terminal write | rollback/no mutation | Pending | Pending |
 
 Do not replace pending fields or mark submission-ready until the exact final deployment has finalized transactions and matching readbacks.

@@ -10,9 +10,11 @@ let counterpartyKey = process.env.CLAUSEPILOT_COUNTERPARTY_PRIVATE_KEY?.trim() |
 const evidenceUrl = process.env.CLAUSEPILOT_EVIDENCE_URL?.trim();
 const expectedState = (process.env.CLAUSEPILOT_EXPECTED_STATE || "SATISFIED").trim().toUpperCase();
 const objectMarker = process.env.CLAUSEPILOT_OBJECT_MARKER?.trim() || "ClausePilot Demo API";
+const windowSeconds = Number(process.env.CLAUSEPILOT_WINDOW_SECONDS || "300");
 if (!contract || !/^0x[0-9a-fA-F]{40}$/.test(contract)) throw new Error("Missing/invalid CLAUSEPILOT_CONTRACT_ADDRESS");
-if (!evidenceUrl || !/^https:\/\/raw\.githubusercontent\.com\/.+\/[0-9a-f]{40}\/.+/.test(evidenceUrl)) throw new Error("Evidence URL must be raw GitHub pinned to a full 40-character commit");
+if (!evidenceUrl || !/^https:\/\//.test(evidenceUrl)) throw new Error("Evidence URL must be HTTPS");
 if (!["SATISFIED", "AT_RISK", "BREACHED", "UNRESOLVED"].includes(expectedState)) throw new Error("Invalid CLAUSEPILOT_EXPECTED_STATE");
+if (!Number.isInteger(windowSeconds) || windowSeconds < 300) throw new Error("CLAUSEPILOT_WINDOW_SECONDS must be an integer >= 300");
 
 async function readSecretLines(count) {
   if (process.stdin.isTTY && process.stdin.setRawMode) process.stdin.setRawMode(true);
@@ -70,6 +72,18 @@ async function write(label, functionName, args, writer = client) {
   return record;
 }
 
+async function expectRollback(label, functionName, args, writer = client) {
+  const hash = await writer.writeContract({ address: contract, functionName, args, value: 0n });
+  process.stdout.write(`${label}: submitted ${hash}\n`);
+  const receipt = await writer.waitForTransactionReceipt({ hash, status: TransactionStatus.FINALIZED, interval: 2000, retries: 300 });
+  let transaction = receipt;
+  try { transaction = await writer.getTransaction({ hash }); } catch { /* receipt remains authoritative fallback */ }
+  const reason = transactionFailure(transaction, receipt);
+  if (!reason) throw new Error(`${label}: expected rollback but write succeeded`);
+  process.stdout.write(`${label}: FINALIZED rollback (${reason})\n`);
+  return { label, hash, reason };
+}
+
 async function read(functionName, args = []) {
   const raw = await client.readContract({ address: contract, functionName, args });
   const value = typeof raw === "string" ? JSON.parse(raw) : raw;
@@ -88,11 +102,36 @@ const acceptTx = resumeObligationId === undefined ? await write("accept_agreemen
 const obligationTx = resumeObligationId === undefined ? await write("add_obligation", "add_obligation", [
   agreementId, `demo-${expectedState.toLowerCase()}`, "UPTIME", "Commercially reasonable uptime",
   "Maintain commercially reasonable availability for the ClausePilot Demo API during every sealed observation window.",
-  origin, evidenceUrl, objectMarker, 86400, 3600,
+  origin, evidenceUrl, objectMarker, 86400, windowSeconds,
 ]) : null;
 const obligationId = obligationTx ? decodeReturnedId(obligationTx.transaction, obligationTx.receipt) : resumeObligationId;
+const obligationBeforeConsent = await read("get_obligation", [obligationId]);
+const wrongDigest = `${obligationBeforeConsent.terms_digest[0] === "f" ? "e" : "f"}${obligationBeforeConsent.terms_digest.slice(1)}`;
+const mismatchedConsentControl = obligationBeforeConsent.accepted
+  ? null
+  : await expectRollback("accept_obligation_mismatched_digest", "accept_obligation", [obligationId, wrongDigest], counterpartyClient);
+if (mismatchedConsentControl) {
+  const afterMismatch = await read("get_obligation", [obligationId]);
+  if (JSON.stringify(afterMismatch) !== JSON.stringify(obligationBeforeConsent)) throw new Error("Mismatched digest rollback mutated obligation state");
+}
+const acceptObligationTx = obligationBeforeConsent.accepted
+  ? null
+  : await write("accept_obligation", "accept_obligation", [obligationId, obligationBeforeConsent.terms_digest], counterpartyClient);
 const openTx = resumeCheckpointId === undefined ? await write("open_due_checkpoint", "open_due_checkpoint", [obligationId]) : null;
 const checkpointId = openTx ? decodeReturnedId(openTx.transaction, openTx.receipt) : resumeCheckpointId;
+const sealedCheckpoint = await read("get_checkpoint", [checkpointId]);
+const earlyAssessmentControl = Math.floor(Date.now() / 1000) < Number(sealedCheckpoint.window_end)
+  ? await expectRollback("assess_before_window_end", "assess_checkpoint", [checkpointId])
+  : null;
+if (earlyAssessmentControl) {
+  const afterEarlyAssessment = await read("get_checkpoint", [checkpointId]);
+  if (JSON.stringify(afterEarlyAssessment) !== JSON.stringify(sealedCheckpoint)) throw new Error("Early assessment rollback mutated checkpoint state");
+}
+while (Math.floor(Date.now() / 1000) < Number(sealedCheckpoint.window_end)) {
+  const remaining = Number(sealedCheckpoint.window_end) - Math.floor(Date.now() / 1000);
+  process.stdout.write(`observation window open: ${remaining}s remaining\n`);
+  await new Promise((resolve) => setTimeout(resolve, Math.min(remaining, 15) * 1000));
+}
 const assessTx = await write("assess_checkpoint", "assess_checkpoint", [checkpointId]);
 const checkpoint = await read("get_checkpoint", [checkpointId]);
 const obligation = await read("get_obligation", [obligationId]);
@@ -102,4 +141,4 @@ const expectedAgreementDelta = agreementTx ? 1 : 0;
 const expectedObligationDelta = obligationTx ? 1 : 0;
 const expectedCheckpointDelta = openTx ? 1 : 0;
 if (Number(totals.agreements) !== Number(initial.agreements) + expectedAgreementDelta || Number(totals.obligations) !== Number(initial.obligations) + expectedObligationDelta || Number(totals.checkpoints) !== Number(initial.checkpoints) + expectedCheckpointDelta) throw new Error("Final totals do not match lifecycle writes");
-process.stdout.write(`LIFECYCLE_COMPLETE ${JSON.stringify({ contract, agreementId, obligationId, checkpointId, expectedState, transactions: [agreementTx?.hash, acceptTx?.hash, obligationTx?.hash, openTx?.hash, assessTx.hash].filter(Boolean), checkpoint, obligation, totals }, null, 2)}\n`);
+process.stdout.write(`LIFECYCLE_COMPLETE ${JSON.stringify({ contract, agreementId, obligationId, checkpointId, expectedState, controls: [mismatchedConsentControl, earlyAssessmentControl].filter(Boolean), transactions: [agreementTx?.hash, acceptTx?.hash, obligationTx?.hash, acceptObligationTx?.hash, openTx?.hash, assessTx.hash].filter(Boolean), checkpoint, obligation, totals }, null, 2)}\n`);

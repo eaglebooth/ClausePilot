@@ -1,15 +1,22 @@
 # ClausePilot StudioNet release evidence
 
-Status: **LIVE PATHS VERIFIED — 2026-09-01**
+Status: **HISTORICAL V1 EVIDENCE — SUPERSEDED BY UNDEPLOYED REMEDIATION**
+
+> The deployment and transactions below truthfully document the earlier V1
+> release. They do **not** prove the 2026-09-04 steward remediation. V1 accepted
+> the agreement before later obligation fields existed and allowed immediate
+> assessment. The current source adds exact per-obligation counterparty consent
+> and an observation-window gate. A fresh address and fresh lifecycle evidence
+> are required before resubmission.
 
 ## Release identity
 
 - Repository: <https://github.com/eaglebooth/ClausePilot>
-- Production frontend: <https://clausepilot-seven.vercel.app>
-- Production monitor: <https://clausepilot-seven.vercel.app/monitor>
-- Vercel deployment ID: `dpl_88B4oYWkq5CVFtsfUdDbwLuxvp3D` (`READY`, production)
-- Reviewed source commit: [`1b062313e06dc257bf9f0dfc9b137dc7e26cdf67`](https://github.com/eaglebooth/ClausePilot/commit/1b062313e06dc257bf9f0dfc9b137dc7e26cdf67)
-- Contract: [`0x36CdaD2E787f09e125d462764389c317616C5c94`](https://explorer-studio.genlayer.com/address/0x36CdaD2E787f09e125d462764389c317616C5c94)
+- Historical V1 frontend: <https://clausepilot-seven.vercel.app>
+- Historical V1 monitor: <https://clausepilot-seven.vercel.app/monitor>
+- Historical Vercel deployment ID: `dpl_88B4oYWkq5CVFtsfUdDbwLuxvp3D` (`READY`, production)
+- Historical reviewed source commit: [`1b062313e06dc257bf9f0dfc9b137dc7e26cdf67`](https://github.com/eaglebooth/ClausePilot/commit/1b062313e06dc257bf9f0dfc9b137dc7e26cdf67)
+- Historical V1 contract: [`0x36CdaD2E787f09e125d462764389c317616C5c94`](https://explorer-studio.genlayer.com/address/0x36CdaD2E787f09e125d462764389c317616C5c94)
 - Commit-pinned contract source: [raw `ClausePilot.py`](https://raw.githubusercontent.com/eaglebooth/ClausePilot/1b062313e06dc257bf9f0dfc9b137dc7e26cdf67/contracts/ClausePilot.py)
 - Source size: `18,535` bytes
 - Source SHA-256: `28e67e91d5d6f8d90569970b102c09089dc4f51a608a655215afe925a3f6828d`

@@ -1,18 +1,25 @@
 # ClausePilot pre-deployment verification
 
-Verified: 2026-09-01  
-Reviewed source/evidence commit: [`9b157cd6b4a18075253c5da3deb9cb63c1410134`](https://github.com/eaglebooth/ClausePilot/commit/9b157cd6b4a18075253c5da3deb9cb63c1410134)  
-Local contract SHA-256: `b8109b4d17b5e079a20a0f7a9ca968f97fa7c85a5fae01ffdae0e84782198548`
+Verified locally: 2026-09-04
+Reviewed commit and contract SHA-256: **pending final commit**
+Local contract SHA-256: `87e0e0edf5157101fd16506d18aad950d83f0c27a9cdeb16ea49bc3f1c93a06e`
 
 ## Local gates
 
 - GenVM AST lint: pass, 2 checks.
-- GenVM semantic validation: pass, contract `ClausePilot`, 10 public methods (4 view, 6 write).
-- Python static/invariant tests: 17 passed.
-- Receipt-ID tests: 3 passed; missing return ID fails closed instead of defaulting to zero.
+- GenVM semantic validation: pass, contract `ClausePilot`, 12 public methods (5 view, 7 write).
+- Python static/invariant/runtime tests: 23 passed.
+- Receipt-ID tests: 4 passed; missing return ID fails closed instead of defaulting to zero.
 - ESLint: pass.
 - Next.js production build: pass; `/` and `/monitor` statically generated.
-- Browser inspection: counterparty acceptance visible; no console warning/error.
+- Browser inspection: V2 workflow rendered and the frontend rejected the
+  configured historical V1 address before any write.
+- StudioNet V2 deployment: pending fresh deployment.
+
+The remediation adds a seventh public write, `accept_obligation`, which binds
+counterparty consent to a deterministic digest of every consequential obligation,
+evidence-policy and schedule field. It also rejects `assess_checkpoint` while the
+sealed observation window remains open.
 
 GenVM reports one acknowledged warning for `time.time()` used by the checkpoint
 schedule. This must be verified through finalized Studionet timing behavior and
@@ -35,7 +42,7 @@ a complete Git repository snapshot.
 
 ## Deployment stop gate
 
-The project is not submission-ready and no Studionet success is claimed yet.
+The remediated source is not submission-ready and no new StudioNet success is claimed yet.
 Next authorized action is deployment of the exact reviewed contract source,
 followed by source-parity verification and live satisfied, breach, unresolved,
 retry and rollback/no-mutation controls on that final address.

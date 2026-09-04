@@ -34,6 +34,7 @@ class Agreement:
 class Obligation:
     agreement_id: str
     owner: str
+    obligation_key: str
     kind: str
     title: str
     requirement: str
@@ -44,6 +45,9 @@ class Obligation:
     window_seconds: bigint
     next_due_at: bigint
     sequence: bigint
+    terms_digest: str
+    accepted: bool
+    accepted_at: bigint
     active: bool
     standing: str
     latest_checkpoint_id: str
@@ -123,6 +127,33 @@ def _authorized_url(url: str, authority_origin: str) -> bool:
 
 def _prompt_data(value: typing.Any) -> str:
     return json.dumps(value, ensure_ascii=True, sort_keys=True).replace("<", "\\u003c").replace(">", "\\u003e")
+
+
+def _obligation_terms_digest(
+    agreement_id: str, agreement_owner: str, counterparty: str,
+    agreement_version: str, clause_digest: str,
+    obligation_key: str, kind: str, title: str, requirement: str,
+    authority_origin: str, evidence_url: str, object_marker: str,
+    cadence_seconds: int, window_seconds: int,
+) -> str:
+    """Commit every immutable field the counterparty accepts for one obligation."""
+    canonical = json.dumps({
+        "agreement_id": agreement_id,
+        "agreement_owner": agreement_owner,
+        "counterparty": counterparty,
+        "agreement_version": agreement_version,
+        "clause_digest": clause_digest,
+        "obligation_key": obligation_key,
+        "kind": kind,
+        "title": title,
+        "requirement": requirement,
+        "authority_origin": authority_origin,
+        "evidence_url": evidence_url,
+        "object_marker": object_marker,
+        "cadence_seconds": cadence_seconds,
+        "window_seconds": window_seconds,
+    }, ensure_ascii=True, sort_keys=True, separators=(",", ":"))
+    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
 
 
 def _fetch(url: str, marker: str) -> dict[str, typing.Any]:
@@ -264,19 +295,42 @@ class ClausePilot(gl.Contract):
             raise gl.vm.UserError("INVALID_SCHEDULE")
         obligation_id = str(self.next_obligation_id)
         now = self._now()
+        terms_digest = _obligation_terms_digest(
+            agreement_id, str(agreement.owner), str(agreement.counterparty),
+            str(agreement.version), str(agreement.clause_digest), key,
+            clean_kind, clean_title, clean_requirement, origin, evidence_url,
+            marker, cadence, window,
+        )
         self.obligations[obligation_id] = Obligation(
-            agreement_id=agreement_id, owner=agreement.owner, kind=clean_kind,
+            agreement_id=agreement_id, owner=agreement.owner, obligation_key=key,
+            kind=clean_kind,
             title=clean_title, requirement=clean_requirement,
             authority_origin=origin, evidence_url=evidence_url,
             object_marker=marker, cadence_seconds=bigint(cadence),
             window_seconds=bigint(window), next_due_at=bigint(now),
-            sequence=bigint(0), active=True, standing="UNRESOLVED",
+            sequence=bigint(0), terms_digest=terms_digest, accepted=False,
+            accepted_at=bigint(0), active=True, standing="UNRESOLVED",
             latest_checkpoint_id="",
         )
         self.obligation_keys[storage_key] = True
         self.next_obligation_id += bigint(1)
         agreement.obligation_count += bigint(1)
         return obligation_id
+
+    @gl.public.write
+    def accept_obligation(self, obligation_id: str, expected_terms_digest: str) -> None:
+        if obligation_id not in self.obligations:
+            raise gl.vm.UserError("OBLIGATION_NOT_FOUND")
+        obligation = self.obligations[obligation_id]
+        agreement = self.agreements[obligation.agreement_id]
+        if gl.message.sender_address.as_hex.lower() != agreement.counterparty:
+            raise gl.vm.UserError("COUNTERPARTY_ONLY")
+        if str(expected_terms_digest or "").lower() != obligation.terms_digest:
+            raise gl.vm.UserError("TERMS_DIGEST_MISMATCH")
+        if not agreement.active or not agreement.accepted or not obligation.active or obligation.accepted:
+            raise gl.vm.UserError("OBLIGATION_NOT_ACCEPTABLE")
+        obligation.accepted = True
+        obligation.accepted_at = bigint(self._now())
 
     @gl.public.write
     def open_due_checkpoint(self, obligation_id: str) -> str:
@@ -287,6 +341,8 @@ class ClausePilot(gl.Contract):
         now = self._now()
         if not obligation.active or not agreement.active:
             raise gl.vm.UserError("OBLIGATION_INACTIVE")
+        if not obligation.accepted:
+            raise gl.vm.UserError("OBLIGATION_NOT_ACCEPTED")
         if now < int(obligation.next_due_at):
             raise gl.vm.UserError("CHECKPOINT_NOT_DUE")
         sequence = int(obligation.sequence)
@@ -319,6 +375,9 @@ class ClausePilot(gl.Contract):
             raise gl.vm.UserError("CHECKPOINT_NOT_OPEN")
         if checkpoint.agreement_version != agreement.version or not obligation.active:
             raise gl.vm.UserError("STALE_CHECKPOINT")
+        now = self._now()
+        if now < int(checkpoint.window_end):
+            raise gl.vm.UserError("OBSERVATION_WINDOW_OPEN")
 
         url = str(obligation.evidence_url)
         marker = str(obligation.object_marker)
@@ -356,7 +415,6 @@ class ClausePilot(gl.Contract):
             resolved = json.loads(raw)
         except Exception:
             raise gl.vm.UserError("INVALID_CONSENSUS_RESULT")
-        now = self._now()
         checkpoint.observed_at = bigint(now)
         if "source_error" in resolved:
             checkpoint.status = "UNRESOLVED"
@@ -394,6 +452,10 @@ class ClausePilot(gl.Contract):
         obligation.active = False
 
     @gl.public.view
+    def get_contract_version(self) -> str:
+        return json.dumps({"name": "ClausePilot", "version": 2, "consent_schema": "exact-obligation-digest"}, sort_keys=True)
+
+    @gl.public.view
     def get_agreement(self, agreement_id: str) -> str:
         if agreement_id not in self.agreements:
             raise gl.vm.UserError("AGREEMENT_NOT_FOUND")
@@ -405,7 +467,7 @@ class ClausePilot(gl.Contract):
         if obligation_id not in self.obligations:
             raise gl.vm.UserError("OBLIGATION_NOT_FOUND")
         item = self.obligations[obligation_id]
-        return json.dumps({"obligation_id": obligation_id, "agreement_id": str(item.agreement_id), "owner": str(item.owner), "kind": str(item.kind), "title": str(item.title), "requirement": str(item.requirement), "authority_origin": str(item.authority_origin), "evidence_url": str(item.evidence_url), "object_marker": str(item.object_marker), "cadence_seconds": int(item.cadence_seconds), "window_seconds": int(item.window_seconds), "next_due_at": int(item.next_due_at), "sequence": int(item.sequence), "active": bool(item.active), "standing": str(item.standing), "latest_checkpoint_id": str(item.latest_checkpoint_id)}, sort_keys=True)
+        return json.dumps({"obligation_id": obligation_id, "agreement_id": str(item.agreement_id), "owner": str(item.owner), "obligation_key": str(item.obligation_key), "kind": str(item.kind), "title": str(item.title), "requirement": str(item.requirement), "authority_origin": str(item.authority_origin), "evidence_url": str(item.evidence_url), "object_marker": str(item.object_marker), "cadence_seconds": int(item.cadence_seconds), "window_seconds": int(item.window_seconds), "next_due_at": int(item.next_due_at), "sequence": int(item.sequence), "terms_digest": str(item.terms_digest), "accepted": bool(item.accepted), "accepted_at": int(item.accepted_at), "active": bool(item.active), "standing": str(item.standing), "latest_checkpoint_id": str(item.latest_checkpoint_id)}, sort_keys=True)
 
     @gl.public.view
     def get_checkpoint(self, checkpoint_id: str) -> str:

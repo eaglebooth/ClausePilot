@@ -120,6 +120,12 @@
 
 .consentBox p { margin: 5px 0 0; color: var(--muted); font-size: 11px; line-height: 1.45; }
 .consentBox label { margin: 0; }
+.consentBox code { display: block; margin-top: 8px; overflow-wrap: anywhere; font-size: 10px; }
+.termsReadback { grid-column: 1 / -1; display: grid; grid-template-columns: 1.3fr 1.4fr .8fr; margin: 4px 0 0; border: 1px solid var(--line); }
+.termsReadback div { min-width: 0; padding: 11px; border-right: 1px solid var(--line); }
+.termsReadback div:last-child { border-right: 0; }
+.termsReadback dt { margin-bottom: 6px; color: var(--muted); font: 500 9px DM Mono; letter-spacing: .08em; text-transform: uppercase; }
+.termsReadback dd { margin: 0; overflow-wrap: anywhere; font-size: 10px; line-height: 1.5; }
 
 @media (max-width: 900px) {
   .howIntro { grid-template-columns: 1fr; }
@@ -127,6 +133,9 @@
   .howSteps article { border-right: 0; border-bottom: 1px solid var(--line); }
   .howSteps article:last-child { border-bottom: 0; }
   .consentBox { grid-template-columns: 1fr; }
+  .termsReadback { grid-template-columns: 1fr; }
+  .termsReadback div { border-right: 0; border-bottom: 1px solid var(--line); }
+  .termsReadback div:last-child { border-bottom: 0; }
 }
 
 @media (max-width: 560px) {
