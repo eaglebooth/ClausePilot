@@ -1,0 +1,1648 @@
+{
+  "address": "0x03B1d1c9761A8EabfB365dB42AE2F513575c5D89",
+  "startedAt": "2026-09-04T08:54:38.342Z",
+  "actors": [
+    "0xeb57bc7125fa60d7482CE12058397369AB3581f8",
+    "0x2da5393d7BBb9A037dc3abB56DbbC5C150fc843f"
+  ],
+  "resources": [
+    {
+      "state": "SATISFIED",
+      "url": "https://raw.githubusercontent.com/eaglebooth/ClausePilot/2634db57d10f88ae9d8dba4f3c13fa7f926cc8a7/samples/v2-uptime-satisfied.json",
+      "sha256": "39aa267d12f3345379322de68c4a6b033936bfb747f70035f6d16d95ecb71983",
+      "bytes": 673,
+      "interval": [
+        1788480000000,
+        1788566400000
+      ]
+    },
+    {
+      "state": "BREACHED",
+      "url": "https://raw.githubusercontent.com/eaglebooth/ClausePilot/2634db57d10f88ae9d8dba4f3c13fa7f926cc8a7/samples/v2-uptime-breached.json",
+      "sha256": "257c9aaca6b6c01a0ba0c75a784bfa8b166643329360c627c7bff798816514a7",
+      "bytes": 740,
+      "interval": [
+        1788480000000,
+        1788566400000
+      ]
+    }
+  ],
+  "transactions": [
+    {
+      "label": "register_suite",
+      "hash": "0x7aec1d582f16914e85eae3f89c4dc9db7aa3ef54e54bd6af5d0e29f0d7f866f2",
+      "method": "register_agreement",
+      "args": [
+        "0x2da5393d7BBb9A037dc3abB56DbbC5C150fc843f",
+        "V2 synthetic assurance test",
+        "v1",
+        "7213d0b657b15aca1addeb81ee75434cef1174134fa8df5dd7ad7870d79187cc"
+      ],
+      "expectedError": null,
+      "status": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "execution": "SUCCESS",
+      "result": {
+        "raw": "AAwx",
+        "status": "return",
+        "payload": {
+          "raw": [
+            12,
+            49
+          ],
+          "readable": "\"1\""
+        }
+      },
+      "passed": true
+    },
+    {
+      "label": "unauthorized_agreement_accept",
+      "hash": "0x3f24a40f5334f5c1b42d4077ec8f32c9e6d0510fe1ffd1c9db62f8d3edbccb9b",
+      "method": "accept_agreement",
+      "args": [
+        "1"
+      ],
+      "expectedError": "COUNTERPARTY_ONLY",
+      "status": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "execution": "ERROR",
+      "result": {
+        "raw": "AUNPVU5URVJQQVJUWV9PTkxZ",
+        "status": "rollback",
+        "payload": "COUNTERPARTY_ONLY"
+      },
+      "before": {
+        "totals": {
+          "agreements": 2,
+          "checkpoints": 1,
+          "obligations": 1
+        },
+        "agreement": {
+          "accepted": false,
+          "active": true,
+          "agreement_id": "1",
+          "clause_digest": "7213d0b657b15aca1addeb81ee75434cef1174134fa8df5dd7ad7870d79187cc",
+          "counterparty": "0x2da5393d7bbb9a037dc3abb56dbbc5c150fc843f",
+          "name": "V2 synthetic assurance test",
+          "obligation_count": 0,
+          "owner": "0xeb57bc7125fa60d7482ce12058397369ab3581f8",
+          "version": "v1"
+        },
+        "obligation": null,
+        "checkpoint": null
+      },
+      "after": {
+        "totals": {
+          "agreements": 2,
+          "checkpoints": 1,
+          "obligations": 1
+        },
+        "agreement": {
+          "accepted": false,
+          "active": true,
+          "agreement_id": "1",
+          "clause_digest": "7213d0b657b15aca1addeb81ee75434cef1174134fa8df5dd7ad7870d79187cc",
+          "counterparty": "0x2da5393d7bbb9a037dc3abb56dbbc5c150fc843f",
+          "name": "V2 synthetic assurance test",
+          "obligation_count": 0,
+          "owner": "0xeb57bc7125fa60d7482ce12058397369ab3581f8",
+          "version": "v1"
+        },
+        "obligation": null,
+        "checkpoint": null
+      },
+      "passed": true
+    },
+    {
+      "label": "accept_suite_agreement",
+      "hash": "0xa692bfb51015f5dc48cc1ccff89297cf8793c78afef664a83a14d19203fdd9bd",
+      "method": "accept_agreement",
+      "args": [
+        "1"
+      ],
+      "expectedError": null,
+      "status": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "execution": "SUCCESS",
+      "result": {
+        "raw": "AAA=",
+        "status": "return",
+        "payload": {
+          "raw": [
+            0
+          ],
+          "readable": "null"
+        }
+      },
+      "passed": true
+    },
+    {
+      "label": "add_SATISFIED",
+      "hash": "0x8dbaaf34af9b3e3bded5c7bed17e2175568762f3c243b0e438366539b3ac6e29",
+      "method": "add_obligation",
+      "args": [
+        "1",
+        "suite-satisfied",
+        "UPTIME",
+        "Commercially reasonable uptime",
+        "Maintain commercially reasonable availability for the ClausePilot Demo API during every sealed observation window.",
+        "https://raw.githubusercontent.com",
+        "https://raw.githubusercontent.com/eaglebooth/ClausePilot/2634db57d10f88ae9d8dba4f3c13fa7f926cc8a7/samples/v2-uptime-satisfied.json",
+        "ClausePilot Demo API",
+        86400,
+        300
+      ],
+      "expectedError": null,
+      "status": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "execution": "SUCCESS",
+      "result": {
+        "raw": "AAwx",
+        "status": "return",
+        "payload": {
+          "raw": [
+            12,
+            49
+          ],
+          "readable": "\"1\""
+        }
+      },
+      "passed": true
+    },
+    {
+      "label": "unauthorized_obligation_accept",
+      "hash": "0x3bea9c3ff9b2b161bd24bd74c1bd9846124a75825f1154ab41b665ec5d6942e5",
+      "method": "accept_obligation",
+      "args": [
+        "1",
+        "15f1c4339a666851016b63906393c6ace4993c087b180264a0083377cbd9e115"
+      ],
+      "expectedError": "COUNTERPARTY_ONLY",
+      "status": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "execution": "ERROR",
+      "result": {
+        "raw": "AUNPVU5URVJQQVJUWV9PTkxZ",
+        "status": "rollback",
+        "payload": "COUNTERPARTY_ONLY"
+      },
+      "before": {
+        "totals": {
+          "agreements": 2,
+          "checkpoints": 1,
+          "obligations": 2
+        },
+        "agreement": {
+          "accepted": true,
+          "active": true,
+          "agreement_id": "1",
+          "clause_digest": "7213d0b657b15aca1addeb81ee75434cef1174134fa8df5dd7ad7870d79187cc",
+          "counterparty": "0x2da5393d7bbb9a037dc3abb56dbbc5c150fc843f",
+          "name": "V2 synthetic assurance test",
+          "obligation_count": 1,
+          "owner": "0xeb57bc7125fa60d7482ce12058397369ab3581f8",
+          "version": "v1"
+        },
+        "obligation": {
+          "accepted": false,
+          "accepted_at": 0,
+          "active": true,
+          "agreement_id": "1",
+          "authority_origin": "https://raw.githubusercontent.com",
+          "cadence_seconds": 86400,
+          "evidence_url": "https://raw.githubusercontent.com/eaglebooth/ClausePilot/2634db57d10f88ae9d8dba4f3c13fa7f926cc8a7/samples/v2-uptime-satisfied.json",
+          "kind": "UPTIME",
+          "latest_checkpoint_id": "",
+          "next_due_at": 1788512211,
+          "object_marker": "ClausePilot Demo API",
+          "obligation_id": "1",
+          "obligation_key": "suite-satisfied",
+          "owner": "0xeb57bc7125fa60d7482ce12058397369ab3581f8",
+          "requirement": "Maintain commercially reasonable availability for the ClausePilot Demo API during every sealed observation window.",
+          "sequence": 0,
+          "standing": "UNRESOLVED",
+          "terms_digest": "15f1c4339a666851016b63906393c6ace4993c087b180264a0083377cbd9e115",
+          "title": "Commercially reasonable uptime",
+          "window_seconds": 300
+        },
+        "checkpoint": null
+      },
+      "after": {
+        "totals": {
+          "agreements": 2,
+          "checkpoints": 1,
+          "obligations": 2
+        },
+        "agreement": {
+          "accepted": true,
+          "active": true,
+          "agreement_id": "1",
+          "clause_digest": "7213d0b657b15aca1addeb81ee75434cef1174134fa8df5dd7ad7870d79187cc",
+          "counterparty": "0x2da5393d7bbb9a037dc3abb56dbbc5c150fc843f",
+          "name": "V2 synthetic assurance test",
+          "obligation_count": 1,
+          "owner": "0xeb57bc7125fa60d7482ce12058397369ab3581f8",
+          "version": "v1"
+        },
+        "obligation": {
+          "accepted": false,
+          "accepted_at": 0,
+          "active": true,
+          "agreement_id": "1",
+          "authority_origin": "https://raw.githubusercontent.com",
+          "cadence_seconds": 86400,
+          "evidence_url": "https://raw.githubusercontent.com/eaglebooth/ClausePilot/2634db57d10f88ae9d8dba4f3c13fa7f926cc8a7/samples/v2-uptime-satisfied.json",
+          "kind": "UPTIME",
+          "latest_checkpoint_id": "",
+          "next_due_at": 1788512211,
+          "object_marker": "ClausePilot Demo API",
+          "obligation_id": "1",
+          "obligation_key": "suite-satisfied",
+          "owner": "0xeb57bc7125fa60d7482ce12058397369ab3581f8",
+          "requirement": "Maintain commercially reasonable availability for the ClausePilot Demo API during every sealed observation window.",
+          "sequence": 0,
+          "standing": "UNRESOLVED",
+          "terms_digest": "15f1c4339a666851016b63906393c6ace4993c087b180264a0083377cbd9e115",
+          "title": "Commercially reasonable uptime",
+          "window_seconds": 300
+        },
+        "checkpoint": null
+      },
+      "passed": true
+    },
+    {
+      "label": "unaccepted_checkpoint",
+      "hash": "0xd571fa2db268d06b957efdb3b3128c611f2d9b867512e82297fbf2a16dbce81a",
+      "method": "open_due_checkpoint",
+      "args": [
+        "1"
+      ],
+      "expectedError": "OBLIGATION_NOT_ACCEPTED",
+      "status": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "execution": "ERROR",
+      "result": {
+        "raw": "AU9CTElHQVRJT05fTk9UX0FDQ0VQVEVE",
+        "status": "rollback",
+        "payload": "OBLIGATION_NOT_ACCEPTED"
+      },
+      "before": {
+        "totals": {
+          "agreements": 2,
+          "checkpoints": 1,
+          "obligations": 2
+        },
+        "agreement": {
+          "accepted": true,
+          "active": true,
+          "agreement_id": "1",
+          "clause_digest": "7213d0b657b15aca1addeb81ee75434cef1174134fa8df5dd7ad7870d79187cc",
+          "counterparty": "0x2da5393d7bbb9a037dc3abb56dbbc5c150fc843f",
+          "name": "V2 synthetic assurance test",
+          "obligation_count": 1,
+          "owner": "0xeb57bc7125fa60d7482ce12058397369ab3581f8",
+          "version": "v1"
+        },
+        "obligation": {
+          "accepted": false,
+          "accepted_at": 0,
+          "active": true,
+          "agreement_id": "1",
+          "authority_origin": "https://raw.githubusercontent.com",
+          "cadence_seconds": 86400,
+          "evidence_url": "https://raw.githubusercontent.com/eaglebooth/ClausePilot/2634db57d10f88ae9d8dba4f3c13fa7f926cc8a7/samples/v2-uptime-satisfied.json",
+          "kind": "UPTIME",
+          "latest_checkpoint_id": "",
+          "next_due_at": 1788512211,
+          "object_marker": "ClausePilot Demo API",
+          "obligation_id": "1",
+          "obligation_key": "suite-satisfied",
+          "owner": "0xeb57bc7125fa60d7482ce12058397369ab3581f8",
+          "requirement": "Maintain commercially reasonable availability for the ClausePilot Demo API during every sealed observation window.",
+          "sequence": 0,
+          "standing": "UNRESOLVED",
+          "terms_digest": "15f1c4339a666851016b63906393c6ace4993c087b180264a0083377cbd9e115",
+          "title": "Commercially reasonable uptime",
+          "window_seconds": 300
+        },
+        "checkpoint": null
+      },
+      "after": {
+        "totals": {
+          "agreements": 2,
+          "checkpoints": 1,
+          "obligations": 2
+        },
+        "agreement": {
+          "accepted": true,
+          "active": true,
+          "agreement_id": "1",
+          "clause_digest": "7213d0b657b15aca1addeb81ee75434cef1174134fa8df5dd7ad7870d79187cc",
+          "counterparty": "0x2da5393d7bbb9a037dc3abb56dbbc5c150fc843f",
+          "name": "V2 synthetic assurance test",
+          "obligation_count": 1,
+          "owner": "0xeb57bc7125fa60d7482ce12058397369ab3581f8",
+          "version": "v1"
+        },
+        "obligation": {
+          "accepted": false,
+          "accepted_at": 0,
+          "active": true,
+          "agreement_id": "1",
+          "authority_origin": "https://raw.githubusercontent.com",
+          "cadence_seconds": 86400,
+          "evidence_url": "https://raw.githubusercontent.com/eaglebooth/ClausePilot/2634db57d10f88ae9d8dba4f3c13fa7f926cc8a7/samples/v2-uptime-satisfied.json",
+          "kind": "UPTIME",
+          "latest_checkpoint_id": "",
+          "next_due_at": 1788512211,
+          "object_marker": "ClausePilot Demo API",
+          "obligation_id": "1",
+          "obligation_key": "suite-satisfied",
+          "owner": "0xeb57bc7125fa60d7482ce12058397369ab3581f8",
+          "requirement": "Maintain commercially reasonable availability for the ClausePilot Demo API during every sealed observation window.",
+          "sequence": 0,
+          "standing": "UNRESOLVED",
+          "terms_digest": "15f1c4339a666851016b63906393c6ace4993c087b180264a0083377cbd9e115",
+          "title": "Commercially reasonable uptime",
+          "window_seconds": 300
+        },
+        "checkpoint": null
+      },
+      "passed": true
+    },
+    {
+      "label": "accept_SATISFIED",
+      "hash": "0xccea276e8bc0031743b74add6ef031ff2ff572706afba6820e6e455e9290d363",
+      "method": "accept_obligation",
+      "args": [
+        "1",
+        "15f1c4339a666851016b63906393c6ace4993c087b180264a0083377cbd9e115"
+      ],
+      "expectedError": null,
+      "status": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "execution": "SUCCESS",
+      "result": {
+        "raw": "AAA=",
+        "status": "return",
+        "payload": {
+          "raw": [
+            0
+          ],
+          "readable": "null"
+        }
+      },
+      "passed": true
+    },
+    {
+      "label": "open_SATISFIED",
+      "hash": "0xfbb09fdc5fc49c1934c67f4f850033758977e54c4a327aaf817446ad07a53551",
+      "method": "open_due_checkpoint",
+      "args": [
+        "1"
+      ],
+      "expectedError": null,
+      "status": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "execution": "SUCCESS",
+      "result": {
+        "raw": "AAwx",
+        "status": "return",
+        "payload": {
+          "raw": [
+            12,
+            49
+          ],
+          "readable": "\"1\""
+        }
+      },
+      "passed": true
+    },
+    {
+      "label": "add_BREACHED",
+      "hash": "0x07b69a60f1d99eff5e82a9f8ceb3d294df6a79861ea375112c68307d649e3df7",
+      "method": "add_obligation",
+      "args": [
+        "1",
+        "suite-breached",
+        "UPTIME",
+        "Commercially reasonable uptime",
+        "Maintain commercially reasonable availability for the ClausePilot Demo API during every sealed observation window.",
+        "https://raw.githubusercontent.com",
+        "https://raw.githubusercontent.com/eaglebooth/ClausePilot/2634db57d10f88ae9d8dba4f3c13fa7f926cc8a7/samples/v2-uptime-breached.json",
+        "ClausePilot Demo API",
+        86400,
+        300
+      ],
+      "expectedError": null,
+      "status": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "execution": "SUCCESS",
+      "result": {
+        "raw": "AAwy",
+        "status": "return",
+        "payload": {
+          "raw": [
+            12,
+            50
+          ],
+          "readable": "\"2\""
+        }
+      },
+      "passed": true
+    },
+    {
+      "label": "accept_BREACHED",
+      "hash": "0x970fe2192b34ce0eb15b88b395235866a6fdfb5c3d399c96020ff0744b9f3aef",
+      "method": "accept_obligation",
+      "args": [
+        "2",
+        "948f535e90a089a0cb566a2ef5a67e84e61a3f3d16ad4fa4810db7b88de9ea1c"
+      ],
+      "expectedError": null,
+      "status": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "execution": "SUCCESS",
+      "result": {
+        "raw": "AAA=",
+        "status": "return",
+        "payload": {
+          "raw": [
+            0
+          ],
+          "readable": "null"
+        }
+      },
+      "passed": true
+    },
+    {
+      "label": "open_BREACHED",
+      "hash": "0x571c075c6bb33851d195065c0e937f9f98bc0fc01f96c914e42e9ba6e3bc03f0",
+      "method": "open_due_checkpoint",
+      "args": [
+        "2"
+      ],
+      "expectedError": null,
+      "status": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "execution": "SUCCESS",
+      "result": {
+        "raw": "AAwy",
+        "status": "return",
+        "payload": {
+          "raw": [
+            12,
+            50
+          ],
+          "readable": "\"2\""
+        }
+      },
+      "passed": true
+    },
+    {
+      "label": "add_UNRESOLVED",
+      "hash": "0xb72aed04cca728cd16e83ed398fce3b22ced1c44b8ff409c0a6ed1b7ac130574",
+      "method": "add_obligation",
+      "args": [
+        "1",
+        "suite-unresolved",
+        "UPTIME",
+        "Commercially reasonable uptime",
+        "Maintain commercially reasonable availability for the ClausePilot Demo API during every sealed observation window.",
+        "https://raw.githubusercontent.com",
+        "https://raw.githubusercontent.com/eaglebooth/ClausePilot/2634db57d10f88ae9d8dba4f3c13fa7f926cc8a7/samples/v2-deliberately-missing-source.json",
+        "ClausePilot Demo API",
+        86400,
+        300
+      ],
+      "expectedError": null,
+      "status": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "execution": "SUCCESS",
+      "result": {
+        "raw": "AAwz",
+        "status": "return",
+        "payload": {
+          "raw": [
+            12,
+            51
+          ],
+          "readable": "\"3\""
+        }
+      },
+      "passed": true
+    },
+    {
+      "label": "accept_UNRESOLVED",
+      "hash": "0xe2dbcb510e277ba84a4999defee8116d1431baefb43ebe3ad70bf229ec294566",
+      "method": "accept_obligation",
+      "args": [
+        "3",
+        "0ac10880a6e165b4ba18b3fb8259ad8a224631e0e283f27bc0a64706d8cf2ee8"
+      ],
+      "expectedError": null,
+      "status": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "execution": "SUCCESS",
+      "result": {
+        "raw": "AAA=",
+        "status": "return",
+        "payload": {
+          "raw": [
+            0
+          ],
+          "readable": "null"
+        }
+      },
+      "passed": true
+    },
+    {
+      "label": "open_UNRESOLVED",
+      "hash": "0x12ed27843fe4a6eb83d7f40f7f89dea60545f93d1db35039dac43ebd7b937ed5",
+      "method": "open_due_checkpoint",
+      "args": [
+        "3"
+      ],
+      "expectedError": null,
+      "status": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "execution": "SUCCESS",
+      "result": {
+        "raw": "AAwz",
+        "status": "return",
+        "payload": {
+          "raw": [
+            12,
+            51
+          ],
+          "readable": "\"3\""
+        }
+      },
+      "passed": true
+    },
+    {
+      "label": "repeat_accept",
+      "hash": "0x9c18bb7bb3002186443e88889704239394ed45663ade633e9b519c02060e7648",
+      "method": "accept_obligation",
+      "args": [
+        "1",
+        "15f1c4339a666851016b63906393c6ace4993c087b180264a0083377cbd9e115"
+      ],
+      "expectedError": "OBLIGATION_NOT_ACCEPTABLE",
+      "status": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "execution": "ERROR",
+      "result": {
+        "raw": "AU9CTElHQVRJT05fTk9UX0FDQ0VQVEFCTEU=",
+        "status": "rollback",
+        "payload": "OBLIGATION_NOT_ACCEPTABLE"
+      },
+      "before": {
+        "totals": {
+          "agreements": 2,
+          "checkpoints": 4,
+          "obligations": 4
+        },
+        "agreement": {
+          "accepted": true,
+          "active": true,
+          "agreement_id": "1",
+          "clause_digest": "7213d0b657b15aca1addeb81ee75434cef1174134fa8df5dd7ad7870d79187cc",
+          "counterparty": "0x2da5393d7bbb9a037dc3abb56dbbc5c150fc843f",
+          "name": "V2 synthetic assurance test",
+          "obligation_count": 3,
+          "owner": "0xeb57bc7125fa60d7482ce12058397369ab3581f8",
+          "version": "v1"
+        },
+        "obligation": {
+          "accepted": true,
+          "accepted_at": 1788512346,
+          "active": true,
+          "agreement_id": "1",
+          "authority_origin": "https://raw.githubusercontent.com",
+          "cadence_seconds": 86400,
+          "evidence_url": "https://raw.githubusercontent.com/eaglebooth/ClausePilot/2634db57d10f88ae9d8dba4f3c13fa7f926cc8a7/samples/v2-uptime-satisfied.json",
+          "kind": "UPTIME",
+          "latest_checkpoint_id": "",
+          "next_due_at": 1788598787,
+          "object_marker": "ClausePilot Demo API",
+          "obligation_id": "1",
+          "obligation_key": "suite-satisfied",
+          "owner": "0xeb57bc7125fa60d7482ce12058397369ab3581f8",
+          "requirement": "Maintain commercially reasonable availability for the ClausePilot Demo API during every sealed observation window.",
+          "sequence": 1,
+          "standing": "UNRESOLVED",
+          "terms_digest": "15f1c4339a666851016b63906393c6ace4993c087b180264a0083377cbd9e115",
+          "title": "Commercially reasonable uptime",
+          "window_seconds": 300
+        },
+        "checkpoint": {
+          "agreement_version": "v1",
+          "checkpoint_id": "1",
+          "coverage": "INSUFFICIENT",
+          "material_facts": [],
+          "obligation_id": "1",
+          "observed_at": 0,
+          "rationale": "Awaiting independent observation.",
+          "scope_relation": "UNKNOWN",
+          "semantic_state": "UNRESOLVED",
+          "sequence": 0,
+          "snapshot_sha256": "",
+          "status": "OPEN",
+          "window_end": 1788512687,
+          "window_start": 1788512387
+        }
+      },
+      "after": {
+        "totals": {
+          "agreements": 2,
+          "checkpoints": 4,
+          "obligations": 4
+        },
+        "agreement": {
+          "accepted": true,
+          "active": true,
+          "agreement_id": "1",
+          "clause_digest": "7213d0b657b15aca1addeb81ee75434cef1174134fa8df5dd7ad7870d79187cc",
+          "counterparty": "0x2da5393d7bbb9a037dc3abb56dbbc5c150fc843f",
+          "name": "V2 synthetic assurance test",
+          "obligation_count": 3,
+          "owner": "0xeb57bc7125fa60d7482ce12058397369ab3581f8",
+          "version": "v1"
+        },
+        "obligation": {
+          "accepted": true,
+          "accepted_at": 1788512346,
+          "active": true,
+          "agreement_id": "1",
+          "authority_origin": "https://raw.githubusercontent.com",
+          "cadence_seconds": 86400,
+          "evidence_url": "https://raw.githubusercontent.com/eaglebooth/ClausePilot/2634db57d10f88ae9d8dba4f3c13fa7f926cc8a7/samples/v2-uptime-satisfied.json",
+          "kind": "UPTIME",
+          "latest_checkpoint_id": "",
+          "next_due_at": 1788598787,
+          "object_marker": "ClausePilot Demo API",
+          "obligation_id": "1",
+          "obligation_key": "suite-satisfied",
+          "owner": "0xeb57bc7125fa60d7482ce12058397369ab3581f8",
+          "requirement": "Maintain commercially reasonable availability for the ClausePilot Demo API during every sealed observation window.",
+          "sequence": 1,
+          "standing": "UNRESOLVED",
+          "terms_digest": "15f1c4339a666851016b63906393c6ace4993c087b180264a0083377cbd9e115",
+          "title": "Commercially reasonable uptime",
+          "window_seconds": 300
+        },
+        "checkpoint": {
+          "agreement_version": "v1",
+          "checkpoint_id": "1",
+          "coverage": "INSUFFICIENT",
+          "material_facts": [],
+          "obligation_id": "1",
+          "observed_at": 0,
+          "rationale": "Awaiting independent observation.",
+          "scope_relation": "UNKNOWN",
+          "semantic_state": "UNRESOLVED",
+          "sequence": 0,
+          "snapshot_sha256": "",
+          "status": "OPEN",
+          "window_end": 1788512687,
+          "window_start": 1788512387
+        }
+      },
+      "passed": true
+    },
+    {
+      "label": "checkpoint_not_due",
+      "hash": "0x284de7389389f18e598c6b051be39fdf39999ee10e828d5796c868f4e8b9318d",
+      "method": "open_due_checkpoint",
+      "args": [
+        "1"
+      ],
+      "expectedError": "CHECKPOINT_NOT_DUE",
+      "status": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "execution": "ERROR",
+      "result": {
+        "raw": "AUNIRUNLUE9JTlRfTk9UX0RVRQ==",
+        "status": "rollback",
+        "payload": "CHECKPOINT_NOT_DUE"
+      },
+      "before": {
+        "totals": {
+          "agreements": 2,
+          "checkpoints": 4,
+          "obligations": 4
+        },
+        "agreement": {
+          "accepted": true,
+          "active": true,
+          "agreement_id": "1",
+          "clause_digest": "7213d0b657b15aca1addeb81ee75434cef1174134fa8df5dd7ad7870d79187cc",
+          "counterparty": "0x2da5393d7bbb9a037dc3abb56dbbc5c150fc843f",
+          "name": "V2 synthetic assurance test",
+          "obligation_count": 3,
+          "owner": "0xeb57bc7125fa60d7482ce12058397369ab3581f8",
+          "version": "v1"
+        },
+        "obligation": {
+          "accepted": true,
+          "accepted_at": 1788512346,
+          "active": true,
+          "agreement_id": "1",
+          "authority_origin": "https://raw.githubusercontent.com",
+          "cadence_seconds": 86400,
+          "evidence_url": "https://raw.githubusercontent.com/eaglebooth/ClausePilot/2634db57d10f88ae9d8dba4f3c13fa7f926cc8a7/samples/v2-uptime-satisfied.json",
+          "kind": "UPTIME",
+          "latest_checkpoint_id": "",
+          "next_due_at": 1788598787,
+          "object_marker": "ClausePilot Demo API",
+          "obligation_id": "1",
+          "obligation_key": "suite-satisfied",
+          "owner": "0xeb57bc7125fa60d7482ce12058397369ab3581f8",
+          "requirement": "Maintain commercially reasonable availability for the ClausePilot Demo API during every sealed observation window.",
+          "sequence": 1,
+          "standing": "UNRESOLVED",
+          "terms_digest": "15f1c4339a666851016b63906393c6ace4993c087b180264a0083377cbd9e115",
+          "title": "Commercially reasonable uptime",
+          "window_seconds": 300
+        },
+        "checkpoint": {
+          "agreement_version": "v1",
+          "checkpoint_id": "1",
+          "coverage": "INSUFFICIENT",
+          "material_facts": [],
+          "obligation_id": "1",
+          "observed_at": 0,
+          "rationale": "Awaiting independent observation.",
+          "scope_relation": "UNKNOWN",
+          "semantic_state": "UNRESOLVED",
+          "sequence": 0,
+          "snapshot_sha256": "",
+          "status": "OPEN",
+          "window_end": 1788512687,
+          "window_start": 1788512387
+        }
+      },
+      "after": {
+        "totals": {
+          "agreements": 2,
+          "checkpoints": 4,
+          "obligations": 4
+        },
+        "agreement": {
+          "accepted": true,
+          "active": true,
+          "agreement_id": "1",
+          "clause_digest": "7213d0b657b15aca1addeb81ee75434cef1174134fa8df5dd7ad7870d79187cc",
+          "counterparty": "0x2da5393d7bbb9a037dc3abb56dbbc5c150fc843f",
+          "name": "V2 synthetic assurance test",
+          "obligation_count": 3,
+          "owner": "0xeb57bc7125fa60d7482ce12058397369ab3581f8",
+          "version": "v1"
+        },
+        "obligation": {
+          "accepted": true,
+          "accepted_at": 1788512346,
+          "active": true,
+          "agreement_id": "1",
+          "authority_origin": "https://raw.githubusercontent.com",
+          "cadence_seconds": 86400,
+          "evidence_url": "https://raw.githubusercontent.com/eaglebooth/ClausePilot/2634db57d10f88ae9d8dba4f3c13fa7f926cc8a7/samples/v2-uptime-satisfied.json",
+          "kind": "UPTIME",
+          "latest_checkpoint_id": "",
+          "next_due_at": 1788598787,
+          "object_marker": "ClausePilot Demo API",
+          "obligation_id": "1",
+          "obligation_key": "suite-satisfied",
+          "owner": "0xeb57bc7125fa60d7482ce12058397369ab3581f8",
+          "requirement": "Maintain commercially reasonable availability for the ClausePilot Demo API during every sealed observation window.",
+          "sequence": 1,
+          "standing": "UNRESOLVED",
+          "terms_digest": "15f1c4339a666851016b63906393c6ace4993c087b180264a0083377cbd9e115",
+          "title": "Commercially reasonable uptime",
+          "window_seconds": 300
+        },
+        "checkpoint": {
+          "agreement_version": "v1",
+          "checkpoint_id": "1",
+          "coverage": "INSUFFICIENT",
+          "material_facts": [],
+          "obligation_id": "1",
+          "observed_at": 0,
+          "rationale": "Awaiting independent observation.",
+          "scope_relation": "UNKNOWN",
+          "semantic_state": "UNRESOLVED",
+          "sequence": 0,
+          "snapshot_sha256": "",
+          "status": "OPEN",
+          "window_end": 1788512687,
+          "window_start": 1788512387
+        }
+      },
+      "passed": true
+    },
+    {
+      "label": "unauthorized_close",
+      "hash": "0x41086d1b2d9566642d38bc02122a2daeebcc451a3ae14dcb38bb40ccb276617d",
+      "method": "close_obligation",
+      "args": [
+        "1"
+      ],
+      "expectedError": "OWNER_ONLY",
+      "status": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "execution": "ERROR",
+      "result": {
+        "raw": "AU9XTkVSX09OTFk=",
+        "status": "rollback",
+        "payload": "OWNER_ONLY"
+      },
+      "before": {
+        "totals": {
+          "agreements": 2,
+          "checkpoints": 4,
+          "obligations": 4
+        },
+        "agreement": {
+          "accepted": true,
+          "active": true,
+          "agreement_id": "1",
+          "clause_digest": "7213d0b657b15aca1addeb81ee75434cef1174134fa8df5dd7ad7870d79187cc",
+          "counterparty": "0x2da5393d7bbb9a037dc3abb56dbbc5c150fc843f",
+          "name": "V2 synthetic assurance test",
+          "obligation_count": 3,
+          "owner": "0xeb57bc7125fa60d7482ce12058397369ab3581f8",
+          "version": "v1"
+        },
+        "obligation": {
+          "accepted": true,
+          "accepted_at": 1788512346,
+          "active": true,
+          "agreement_id": "1",
+          "authority_origin": "https://raw.githubusercontent.com",
+          "cadence_seconds": 86400,
+          "evidence_url": "https://raw.githubusercontent.com/eaglebooth/ClausePilot/2634db57d10f88ae9d8dba4f3c13fa7f926cc8a7/samples/v2-uptime-satisfied.json",
+          "kind": "UPTIME",
+          "latest_checkpoint_id": "",
+          "next_due_at": 1788598787,
+          "object_marker": "ClausePilot Demo API",
+          "obligation_id": "1",
+          "obligation_key": "suite-satisfied",
+          "owner": "0xeb57bc7125fa60d7482ce12058397369ab3581f8",
+          "requirement": "Maintain commercially reasonable availability for the ClausePilot Demo API during every sealed observation window.",
+          "sequence": 1,
+          "standing": "UNRESOLVED",
+          "terms_digest": "15f1c4339a666851016b63906393c6ace4993c087b180264a0083377cbd9e115",
+          "title": "Commercially reasonable uptime",
+          "window_seconds": 300
+        },
+        "checkpoint": {
+          "agreement_version": "v1",
+          "checkpoint_id": "1",
+          "coverage": "INSUFFICIENT",
+          "material_facts": [],
+          "obligation_id": "1",
+          "observed_at": 0,
+          "rationale": "Awaiting independent observation.",
+          "scope_relation": "UNKNOWN",
+          "semantic_state": "UNRESOLVED",
+          "sequence": 0,
+          "snapshot_sha256": "",
+          "status": "OPEN",
+          "window_end": 1788512687,
+          "window_start": 1788512387
+        }
+      },
+      "after": {
+        "totals": {
+          "agreements": 2,
+          "checkpoints": 4,
+          "obligations": 4
+        },
+        "agreement": {
+          "accepted": true,
+          "active": true,
+          "agreement_id": "1",
+          "clause_digest": "7213d0b657b15aca1addeb81ee75434cef1174134fa8df5dd7ad7870d79187cc",
+          "counterparty": "0x2da5393d7bbb9a037dc3abb56dbbc5c150fc843f",
+          "name": "V2 synthetic assurance test",
+          "obligation_count": 3,
+          "owner": "0xeb57bc7125fa60d7482ce12058397369ab3581f8",
+          "version": "v1"
+        },
+        "obligation": {
+          "accepted": true,
+          "accepted_at": 1788512346,
+          "active": true,
+          "agreement_id": "1",
+          "authority_origin": "https://raw.githubusercontent.com",
+          "cadence_seconds": 86400,
+          "evidence_url": "https://raw.githubusercontent.com/eaglebooth/ClausePilot/2634db57d10f88ae9d8dba4f3c13fa7f926cc8a7/samples/v2-uptime-satisfied.json",
+          "kind": "UPTIME",
+          "latest_checkpoint_id": "",
+          "next_due_at": 1788598787,
+          "object_marker": "ClausePilot Demo API",
+          "obligation_id": "1",
+          "obligation_key": "suite-satisfied",
+          "owner": "0xeb57bc7125fa60d7482ce12058397369ab3581f8",
+          "requirement": "Maintain commercially reasonable availability for the ClausePilot Demo API during every sealed observation window.",
+          "sequence": 1,
+          "standing": "UNRESOLVED",
+          "terms_digest": "15f1c4339a666851016b63906393c6ace4993c087b180264a0083377cbd9e115",
+          "title": "Commercially reasonable uptime",
+          "window_seconds": 300
+        },
+        "checkpoint": {
+          "agreement_version": "v1",
+          "checkpoint_id": "1",
+          "coverage": "INSUFFICIENT",
+          "material_facts": [],
+          "obligation_id": "1",
+          "observed_at": 0,
+          "rationale": "Awaiting independent observation.",
+          "scope_relation": "UNKNOWN",
+          "semantic_state": "UNRESOLVED",
+          "sequence": 0,
+          "snapshot_sha256": "",
+          "status": "OPEN",
+          "window_end": 1788512687,
+          "window_start": 1788512387
+        }
+      },
+      "passed": true
+    },
+    {
+      "label": "assess_SATISFIED",
+      "hash": "0x1a657c65b63fc8b7871a1ba6665131dda1f777d7ba2a9d12d238ba65e6722214",
+      "method": "assess_checkpoint",
+      "args": [
+        "1"
+      ],
+      "expectedError": null,
+      "status": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "execution": "SUCCESS",
+      "result": {
+        "raw": "AExTQVRJU0ZJRUQ=",
+        "status": "return",
+        "payload": {
+          "raw": [
+            76,
+            83,
+            65,
+            84,
+            73,
+            83,
+            70,
+            73,
+            69,
+            68
+          ],
+          "readable": "\"SATISFIED\""
+        }
+      },
+      "passed": true
+    },
+    {
+      "label": "assess_BREACHED",
+      "hash": "0xdf13cce3974a93d6a575aceae770a315e0925dfc2554aa41d8d69c28aa96156d",
+      "method": "assess_checkpoint",
+      "args": [
+        "2"
+      ],
+      "expectedError": null,
+      "status": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "execution": "SUCCESS",
+      "result": {
+        "raw": "AERCUkVBQ0hFRA==",
+        "status": "return",
+        "payload": {
+          "raw": [
+            68,
+            66,
+            82,
+            69,
+            65,
+            67,
+            72,
+            69,
+            68
+          ],
+          "readable": "\"BREACHED\""
+        }
+      },
+      "passed": true
+    },
+    {
+      "label": "assess_UNRESOLVED",
+      "hash": "0xd4bb77d6d2a03806c0270a007441915fd9f64bc2c5eb4ad829648a5ccb526e00",
+      "method": "assess_checkpoint",
+      "args": [
+        "3"
+      ],
+      "expectedError": null,
+      "status": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "execution": "SUCCESS",
+      "result": {
+        "raw": "AFRVTlJFU09MVkVE",
+        "status": "return",
+        "payload": {
+          "raw": [
+            84,
+            85,
+            78,
+            82,
+            69,
+            83,
+            79,
+            76,
+            86,
+            69,
+            68
+          ],
+          "readable": "\"UNRESOLVED\""
+        }
+      },
+      "passed": true
+    },
+    {
+      "label": "terminal_replay",
+      "hash": "0xba0ae1effde7c2606d12472628cec19f264e6b75d6071c3f702aed0fad93d9e5",
+      "method": "assess_checkpoint",
+      "args": [
+        "1"
+      ],
+      "expectedError": "CHECKPOINT_NOT_OPEN",
+      "status": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "execution": "ERROR",
+      "result": {
+        "raw": "AUNIRUNLUE9JTlRfTk9UX09QRU4=",
+        "status": "rollback",
+        "payload": "CHECKPOINT_NOT_OPEN"
+      },
+      "before": {
+        "totals": {
+          "agreements": 2,
+          "checkpoints": 4,
+          "obligations": 4
+        },
+        "agreement": {
+          "accepted": true,
+          "active": true,
+          "agreement_id": "1",
+          "clause_digest": "7213d0b657b15aca1addeb81ee75434cef1174134fa8df5dd7ad7870d79187cc",
+          "counterparty": "0x2da5393d7bbb9a037dc3abb56dbbc5c150fc843f",
+          "name": "V2 synthetic assurance test",
+          "obligation_count": 3,
+          "owner": "0xeb57bc7125fa60d7482ce12058397369ab3581f8",
+          "version": "v1"
+        },
+        "obligation": {
+          "accepted": true,
+          "accepted_at": 1788512346,
+          "active": true,
+          "agreement_id": "1",
+          "authority_origin": "https://raw.githubusercontent.com",
+          "cadence_seconds": 86400,
+          "evidence_url": "https://raw.githubusercontent.com/eaglebooth/ClausePilot/2634db57d10f88ae9d8dba4f3c13fa7f926cc8a7/samples/v2-uptime-satisfied.json",
+          "kind": "UPTIME",
+          "latest_checkpoint_id": "1",
+          "next_due_at": 1788598787,
+          "object_marker": "ClausePilot Demo API",
+          "obligation_id": "1",
+          "obligation_key": "suite-satisfied",
+          "owner": "0xeb57bc7125fa60d7482ce12058397369ab3581f8",
+          "requirement": "Maintain commercially reasonable availability for the ClausePilot Demo API during every sealed observation window.",
+          "sequence": 1,
+          "standing": "SATISFIED",
+          "terms_digest": "15f1c4339a666851016b63906393c6ace4993c087b180264a0083377cbd9e115",
+          "title": "Commercially reasonable uptime",
+          "window_seconds": 300
+        },
+        "checkpoint": {
+          "agreement_version": "v1",
+          "checkpoint_id": "1",
+          "coverage": "SUFFICIENT",
+          "material_facts": [
+            "Evidence explicitly identifies the ClausePilot Demo API under agreement version v1, matching the bound obligation.",
+            "Simulated availability record is declared to cover every instant of the observation window 2026-09-04T00:00:00Z to 2026-09-05T00:00:00Z.",
+            "Reported availability is 100% with no material incidents recorded.",
+            "All endpoints remained accessible and served valid responses throughout the simulated interval.",
+            "No outage or material service degradation occurred during the interval.",
+            "Source fixture is explicitly labeled synthetic/deterministic test data, not real vendor telemetry; this limits evidentiary weight but does not negate the declared outcome for the sealed window."
+          ],
+          "obligation_id": "1",
+          "observed_at": 1788512918,
+          "rationale": "The evidence matches the bound object (ClausePilot Demo API, v1, UPTIME obligation) and the stated observation window fully contains the sealed window (window_start 1788512387 to window_end 1788512687, a 300-second sub-interval well within 2026-09-04). Coverage is declared complete for every instant of the interval. The availability data shows 100% uptime with no incidents, satisfying the 'commercially reasonable availability' standard. The synthetic/deterministic nature of the fixture is noted but does not introduce ambiguity about the declared outcome; absent any contradicting signal, the obligation is assessed as SATISFIED.",
+          "scope_relation": "MATCH",
+          "semantic_state": "SATISFIED",
+          "sequence": 0,
+          "snapshot_sha256": "39aa267d12f3345379322de68c4a6b033936bfb747f70035f6d16d95ecb71983",
+          "status": "ASSESSED",
+          "window_end": 1788512687,
+          "window_start": 1788512387
+        }
+      },
+      "after": {
+        "totals": {
+          "agreements": 2,
+          "checkpoints": 4,
+          "obligations": 4
+        },
+        "agreement": {
+          "accepted": true,
+          "active": true,
+          "agreement_id": "1",
+          "clause_digest": "7213d0b657b15aca1addeb81ee75434cef1174134fa8df5dd7ad7870d79187cc",
+          "counterparty": "0x2da5393d7bbb9a037dc3abb56dbbc5c150fc843f",
+          "name": "V2 synthetic assurance test",
+          "obligation_count": 3,
+          "owner": "0xeb57bc7125fa60d7482ce12058397369ab3581f8",
+          "version": "v1"
+        },
+        "obligation": {
+          "accepted": true,
+          "accepted_at": 1788512346,
+          "active": true,
+          "agreement_id": "1",
+          "authority_origin": "https://raw.githubusercontent.com",
+          "cadence_seconds": 86400,
+          "evidence_url": "https://raw.githubusercontent.com/eaglebooth/ClausePilot/2634db57d10f88ae9d8dba4f3c13fa7f926cc8a7/samples/v2-uptime-satisfied.json",
+          "kind": "UPTIME",
+          "latest_checkpoint_id": "1",
+          "next_due_at": 1788598787,
+          "object_marker": "ClausePilot Demo API",
+          "obligation_id": "1",
+          "obligation_key": "suite-satisfied",
+          "owner": "0xeb57bc7125fa60d7482ce12058397369ab3581f8",
+          "requirement": "Maintain commercially reasonable availability for the ClausePilot Demo API during every sealed observation window.",
+          "sequence": 1,
+          "standing": "SATISFIED",
+          "terms_digest": "15f1c4339a666851016b63906393c6ace4993c087b180264a0083377cbd9e115",
+          "title": "Commercially reasonable uptime",
+          "window_seconds": 300
+        },
+        "checkpoint": {
+          "agreement_version": "v1",
+          "checkpoint_id": "1",
+          "coverage": "SUFFICIENT",
+          "material_facts": [
+            "Evidence explicitly identifies the ClausePilot Demo API under agreement version v1, matching the bound obligation.",
+            "Simulated availability record is declared to cover every instant of the observation window 2026-09-04T00:00:00Z to 2026-09-05T00:00:00Z.",
+            "Reported availability is 100% with no material incidents recorded.",
+            "All endpoints remained accessible and served valid responses throughout the simulated interval.",
+            "No outage or material service degradation occurred during the interval.",
+            "Source fixture is explicitly labeled synthetic/deterministic test data, not real vendor telemetry; this limits evidentiary weight but does not negate the declared outcome for the sealed window."
+          ],
+          "obligation_id": "1",
+          "observed_at": 1788512918,
+          "rationale": "The evidence matches the bound object (ClausePilot Demo API, v1, UPTIME obligation) and the stated observation window fully contains the sealed window (window_start 1788512387 to window_end 1788512687, a 300-second sub-interval well within 2026-09-04). Coverage is declared complete for every instant of the interval. The availability data shows 100% uptime with no incidents, satisfying the 'commercially reasonable availability' standard. The synthetic/deterministic nature of the fixture is noted but does not introduce ambiguity about the declared outcome; absent any contradicting signal, the obligation is assessed as SATISFIED.",
+          "scope_relation": "MATCH",
+          "semantic_state": "SATISFIED",
+          "sequence": 0,
+          "snapshot_sha256": "39aa267d12f3345379322de68c4a6b033936bfb747f70035f6d16d95ecb71983",
+          "status": "ASSESSED",
+          "window_end": 1788512687,
+          "window_start": 1788512387
+        }
+      },
+      "passed": true
+    },
+    {
+      "label": "retry_unavailable",
+      "hash": "0xaf8a0a3f5e82300e7558135c0c7e0c18d5deb2ced51147637abfd7b02c90547c",
+      "method": "assess_checkpoint",
+      "args": [
+        "3"
+      ],
+      "expectedError": null,
+      "status": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "execution": "SUCCESS",
+      "result": {
+        "raw": "AFRVTlJFU09MVkVE",
+        "status": "return",
+        "payload": {
+          "raw": [
+            84,
+            85,
+            78,
+            82,
+            69,
+            83,
+            79,
+            76,
+            86,
+            69,
+            68
+          ],
+          "readable": "\"UNRESOLVED\""
+        }
+      },
+      "passed": true
+    },
+    {
+      "label": "close_unavailable",
+      "hash": "0x6d75111be2e07922beede5e9b8c0ba585cbc05afce64759a5394bb37537c15f3",
+      "method": "close_obligation",
+      "args": [
+        "3"
+      ],
+      "expectedError": null,
+      "status": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "execution": "SUCCESS",
+      "result": {
+        "raw": "AAA=",
+        "status": "return",
+        "payload": {
+          "raw": [
+            0
+          ],
+          "readable": "null"
+        }
+      },
+      "passed": true
+    },
+    {
+      "label": "assess_closed_obligation",
+      "hash": "0x1724dbeac0b6a301908163187d6012e02a668af8395d2bbea1981c91432fb666",
+      "method": "assess_checkpoint",
+      "args": [
+        "3"
+      ],
+      "expectedError": "STALE_CHECKPOINT",
+      "status": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "execution": "ERROR",
+      "result": {
+        "raw": "AVNUQUxFX0NIRUNLUE9JTlQ=",
+        "status": "rollback",
+        "payload": "STALE_CHECKPOINT"
+      },
+      "before": {
+        "totals": {
+          "agreements": 2,
+          "checkpoints": 4,
+          "obligations": 4
+        },
+        "agreement": {
+          "accepted": true,
+          "active": true,
+          "agreement_id": "1",
+          "clause_digest": "7213d0b657b15aca1addeb81ee75434cef1174134fa8df5dd7ad7870d79187cc",
+          "counterparty": "0x2da5393d7bbb9a037dc3abb56dbbc5c150fc843f",
+          "name": "V2 synthetic assurance test",
+          "obligation_count": 3,
+          "owner": "0xeb57bc7125fa60d7482ce12058397369ab3581f8",
+          "version": "v1"
+        },
+        "obligation": {
+          "accepted": true,
+          "accepted_at": 1788512603,
+          "active": false,
+          "agreement_id": "1",
+          "authority_origin": "https://raw.githubusercontent.com",
+          "cadence_seconds": 86400,
+          "evidence_url": "https://raw.githubusercontent.com/eaglebooth/ClausePilot/2634db57d10f88ae9d8dba4f3c13fa7f926cc8a7/samples/v2-deliberately-missing-source.json",
+          "kind": "UPTIME",
+          "latest_checkpoint_id": "",
+          "next_due_at": 1788599047,
+          "object_marker": "ClausePilot Demo API",
+          "obligation_id": "3",
+          "obligation_key": "suite-unresolved",
+          "owner": "0xeb57bc7125fa60d7482ce12058397369ab3581f8",
+          "requirement": "Maintain commercially reasonable availability for the ClausePilot Demo API during every sealed observation window.",
+          "sequence": 1,
+          "standing": "UNRESOLVED",
+          "terms_digest": "0ac10880a6e165b4ba18b3fb8259ad8a224631e0e283f27bc0a64706d8cf2ee8",
+          "title": "Commercially reasonable uptime",
+          "window_seconds": 300
+        },
+        "checkpoint": {
+          "agreement_version": "v1",
+          "checkpoint_id": "3",
+          "coverage": "INSUFFICIENT",
+          "material_facts": [],
+          "obligation_id": "3",
+          "observed_at": 1788513330,
+          "rationale": "OBJECT_MARKER_MISSING",
+          "scope_relation": "UNKNOWN",
+          "semantic_state": "UNRESOLVED",
+          "sequence": 0,
+          "snapshot_sha256": "",
+          "status": "UNRESOLVED",
+          "window_end": 1788512947,
+          "window_start": 1788512647
+        }
+      },
+      "after": {
+        "totals": {
+          "agreements": 2,
+          "checkpoints": 4,
+          "obligations": 4
+        },
+        "agreement": {
+          "accepted": true,
+          "active": true,
+          "agreement_id": "1",
+          "clause_digest": "7213d0b657b15aca1addeb81ee75434cef1174134fa8df5dd7ad7870d79187cc",
+          "counterparty": "0x2da5393d7bbb9a037dc3abb56dbbc5c150fc843f",
+          "name": "V2 synthetic assurance test",
+          "obligation_count": 3,
+          "owner": "0xeb57bc7125fa60d7482ce12058397369ab3581f8",
+          "version": "v1"
+        },
+        "obligation": {
+          "accepted": true,
+          "accepted_at": 1788512603,
+          "active": false,
+          "agreement_id": "1",
+          "authority_origin": "https://raw.githubusercontent.com",
+          "cadence_seconds": 86400,
+          "evidence_url": "https://raw.githubusercontent.com/eaglebooth/ClausePilot/2634db57d10f88ae9d8dba4f3c13fa7f926cc8a7/samples/v2-deliberately-missing-source.json",
+          "kind": "UPTIME",
+          "latest_checkpoint_id": "",
+          "next_due_at": 1788599047,
+          "object_marker": "ClausePilot Demo API",
+          "obligation_id": "3",
+          "obligation_key": "suite-unresolved",
+          "owner": "0xeb57bc7125fa60d7482ce12058397369ab3581f8",
+          "requirement": "Maintain commercially reasonable availability for the ClausePilot Demo API during every sealed observation window.",
+          "sequence": 1,
+          "standing": "UNRESOLVED",
+          "terms_digest": "0ac10880a6e165b4ba18b3fb8259ad8a224631e0e283f27bc0a64706d8cf2ee8",
+          "title": "Commercially reasonable uptime",
+          "window_seconds": 300
+        },
+        "checkpoint": {
+          "agreement_version": "v1",
+          "checkpoint_id": "3",
+          "coverage": "INSUFFICIENT",
+          "material_facts": [],
+          "obligation_id": "3",
+          "observed_at": 1788513330,
+          "rationale": "OBJECT_MARKER_MISSING",
+          "scope_relation": "UNKNOWN",
+          "semantic_state": "UNRESOLVED",
+          "sequence": 0,
+          "snapshot_sha256": "",
+          "status": "UNRESOLVED",
+          "window_end": 1788512947,
+          "window_start": 1788512647
+        }
+      },
+      "passed": true
+    }
+  ],
+  "scenarios": [
+    {
+      "state": "SATISFIED",
+      "url": "https://raw.githubusercontent.com/eaglebooth/ClausePilot/2634db57d10f88ae9d8dba4f3c13fa7f926cc8a7/samples/v2-uptime-satisfied.json",
+      "sha256": "39aa267d12f3345379322de68c4a6b033936bfb747f70035f6d16d95ecb71983",
+      "bytes": 673,
+      "interval": [
+        1788480000000,
+        1788566400000
+      ],
+      "obligationId": "1",
+      "checkpointId": "1",
+      "sealed": {
+        "agreement_version": "v1",
+        "checkpoint_id": "1",
+        "coverage": "INSUFFICIENT",
+        "material_facts": [],
+        "obligation_id": "1",
+        "observed_at": 0,
+        "rationale": "Awaiting independent observation.",
+        "scope_relation": "UNKNOWN",
+        "semantic_state": "UNRESOLVED",
+        "sequence": 0,
+        "snapshot_sha256": "",
+        "status": "OPEN",
+        "window_end": 1788512687,
+        "window_start": 1788512387
+      },
+      "checkpoint": {
+        "agreement_version": "v1",
+        "checkpoint_id": "1",
+        "coverage": "SUFFICIENT",
+        "material_facts": [
+          "Evidence explicitly identifies the ClausePilot Demo API under agreement version v1, matching the bound obligation.",
+          "Simulated availability record is declared to cover every instant of the observation window 2026-09-04T00:00:00Z to 2026-09-05T00:00:00Z.",
+          "Reported availability is 100% with no material incidents recorded.",
+          "All endpoints remained accessible and served valid responses throughout the simulated interval.",
+          "No outage or material service degradation occurred during the interval.",
+          "Source fixture is explicitly labeled synthetic/deterministic test data, not real vendor telemetry; this limits evidentiary weight but does not negate the declared outcome for the sealed window."
+        ],
+        "obligation_id": "1",
+        "observed_at": 1788512918,
+        "rationale": "The evidence matches the bound object (ClausePilot Demo API, v1, UPTIME obligation) and the stated observation window fully contains the sealed window (window_start 1788512387 to window_end 1788512687, a 300-second sub-interval well within 2026-09-04). Coverage is declared complete for every instant of the interval. The availability data shows 100% uptime with no incidents, satisfying the 'commercially reasonable availability' standard. The synthetic/deterministic nature of the fixture is noted but does not introduce ambiguity about the declared outcome; absent any contradicting signal, the obligation is assessed as SATISFIED.",
+        "scope_relation": "MATCH",
+        "semantic_state": "SATISFIED",
+        "sequence": 0,
+        "snapshot_sha256": "39aa267d12f3345379322de68c4a6b033936bfb747f70035f6d16d95ecb71983",
+        "status": "ASSESSED",
+        "window_end": 1788512687,
+        "window_start": 1788512387
+      },
+      "obligation": {
+        "accepted": true,
+        "accepted_at": 1788512346,
+        "active": true,
+        "agreement_id": "1",
+        "authority_origin": "https://raw.githubusercontent.com",
+        "cadence_seconds": 86400,
+        "evidence_url": "https://raw.githubusercontent.com/eaglebooth/ClausePilot/2634db57d10f88ae9d8dba4f3c13fa7f926cc8a7/samples/v2-uptime-satisfied.json",
+        "kind": "UPTIME",
+        "latest_checkpoint_id": "1",
+        "next_due_at": 1788598787,
+        "object_marker": "ClausePilot Demo API",
+        "obligation_id": "1",
+        "obligation_key": "suite-satisfied",
+        "owner": "0xeb57bc7125fa60d7482ce12058397369ab3581f8",
+        "requirement": "Maintain commercially reasonable availability for the ClausePilot Demo API during every sealed observation window.",
+        "sequence": 1,
+        "standing": "SATISFIED",
+        "terms_digest": "15f1c4339a666851016b63906393c6ace4993c087b180264a0083377cbd9e115",
+        "title": "Commercially reasonable uptime",
+        "window_seconds": 300
+      },
+      "passed": true
+    },
+    {
+      "state": "BREACHED",
+      "url": "https://raw.githubusercontent.com/eaglebooth/ClausePilot/2634db57d10f88ae9d8dba4f3c13fa7f926cc8a7/samples/v2-uptime-breached.json",
+      "sha256": "257c9aaca6b6c01a0ba0c75a784bfa8b166643329360c627c7bff798816514a7",
+      "bytes": 740,
+      "interval": [
+        1788480000000,
+        1788566400000
+      ],
+      "obligationId": "2",
+      "checkpointId": "2",
+      "sealed": {
+        "agreement_version": "v1",
+        "checkpoint_id": "2",
+        "coverage": "INSUFFICIENT",
+        "material_facts": [],
+        "obligation_id": "2",
+        "observed_at": 0,
+        "rationale": "Awaiting independent observation.",
+        "scope_relation": "UNKNOWN",
+        "semantic_state": "UNRESOLVED",
+        "sequence": 0,
+        "snapshot_sha256": "",
+        "status": "OPEN",
+        "window_end": 1788512803,
+        "window_start": 1788512503
+      },
+      "checkpoint": {
+        "agreement_version": "v1",
+        "checkpoint_id": "2",
+        "coverage": "SUFFICIENT",
+        "material_facts": [
+          "Observation window 2026-09-04T00:00:00Z/2026-09-05T00:00:00Z",
+          "Simulated record covers every instant of interval",
+          "Availability percent reported as 0%",
+          "All API endpoints were inaccessible throughout interval",
+          "Continuous complete loss of service, not minor degradation",
+          "Source is synthetic deterministic test scenario, not real telemetry"
+        ],
+        "obligation_id": "2",
+        "observed_at": 1788513068,
+        "rationale": "The evidence explicitly references the ClausePilot Demo API and covers the entire sealed observation window. It records 0% availability, meaning the service was entirely unavailable, which violates the obligation to maintain commercially reasonable availability. Therefore the obligation is breached.",
+        "scope_relation": "MATCH",
+        "semantic_state": "BREACHED",
+        "sequence": 0,
+        "snapshot_sha256": "257c9aaca6b6c01a0ba0c75a784bfa8b166643329360c627c7bff798816514a7",
+        "status": "ASSESSED",
+        "window_end": 1788512803,
+        "window_start": 1788512503
+      },
+      "obligation": {
+        "accepted": true,
+        "accepted_at": 1788512465,
+        "active": true,
+        "agreement_id": "1",
+        "authority_origin": "https://raw.githubusercontent.com",
+        "cadence_seconds": 86400,
+        "evidence_url": "https://raw.githubusercontent.com/eaglebooth/ClausePilot/2634db57d10f88ae9d8dba4f3c13fa7f926cc8a7/samples/v2-uptime-breached.json",
+        "kind": "UPTIME",
+        "latest_checkpoint_id": "2",
+        "next_due_at": 1788598903,
+        "object_marker": "ClausePilot Demo API",
+        "obligation_id": "2",
+        "obligation_key": "suite-breached",
+        "owner": "0xeb57bc7125fa60d7482ce12058397369ab3581f8",
+        "requirement": "Maintain commercially reasonable availability for the ClausePilot Demo API during every sealed observation window.",
+        "sequence": 1,
+        "standing": "BREACHED",
+        "terms_digest": "948f535e90a089a0cb566a2ef5a67e84e61a3f3d16ad4fa4810db7b88de9ea1c",
+        "title": "Commercially reasonable uptime",
+        "window_seconds": 300
+      },
+      "passed": true
+    },
+    {
+      "state": "UNRESOLVED",
+      "url": "https://raw.githubusercontent.com/eaglebooth/ClausePilot/2634db57d10f88ae9d8dba4f3c13fa7f926cc8a7/samples/v2-deliberately-missing-source.json",
+      "obligationId": "3",
+      "checkpointId": "3",
+      "sealed": {
+        "agreement_version": "v1",
+        "checkpoint_id": "3",
+        "coverage": "INSUFFICIENT",
+        "material_facts": [],
+        "obligation_id": "3",
+        "observed_at": 0,
+        "rationale": "Awaiting independent observation.",
+        "scope_relation": "UNKNOWN",
+        "semantic_state": "UNRESOLVED",
+        "sequence": 0,
+        "snapshot_sha256": "",
+        "status": "OPEN",
+        "window_end": 1788512947,
+        "window_start": 1788512647
+      },
+      "checkpoint": {
+        "agreement_version": "v1",
+        "checkpoint_id": "3",
+        "coverage": "INSUFFICIENT",
+        "material_facts": [],
+        "obligation_id": "3",
+        "observed_at": 1788513169,
+        "rationale": "OBJECT_MARKER_MISSING",
+        "scope_relation": "UNKNOWN",
+        "semantic_state": "UNRESOLVED",
+        "sequence": 0,
+        "snapshot_sha256": "",
+        "status": "UNRESOLVED",
+        "window_end": 1788512947,
+        "window_start": 1788512647
+      },
+      "obligation": {
+        "accepted": true,
+        "accepted_at": 1788512603,
+        "active": true,
+        "agreement_id": "1",
+        "authority_origin": "https://raw.githubusercontent.com",
+        "cadence_seconds": 86400,
+        "evidence_url": "https://raw.githubusercontent.com/eaglebooth/ClausePilot/2634db57d10f88ae9d8dba4f3c13fa7f926cc8a7/samples/v2-deliberately-missing-source.json",
+        "kind": "UPTIME",
+        "latest_checkpoint_id": "",
+        "next_due_at": 1788599047,
+        "object_marker": "ClausePilot Demo API",
+        "obligation_id": "3",
+        "obligation_key": "suite-unresolved",
+        "owner": "0xeb57bc7125fa60d7482ce12058397369ab3581f8",
+        "requirement": "Maintain commercially reasonable availability for the ClausePilot Demo API during every sealed observation window.",
+        "sequence": 1,
+        "standing": "UNRESOLVED",
+        "terms_digest": "0ac10880a6e165b4ba18b3fb8259ad8a224631e0e283f27bc0a64706d8cf2ee8",
+        "title": "Commercially reasonable uptime",
+        "window_seconds": 300
+      },
+      "passed": true,
+      "retry": {
+        "agreement_version": "v1",
+        "checkpoint_id": "3",
+        "coverage": "INSUFFICIENT",
+        "material_facts": [],
+        "obligation_id": "3",
+        "observed_at": 1788513330,
+        "rationale": "OBJECT_MARKER_MISSING",
+        "scope_relation": "UNKNOWN",
+        "semantic_state": "UNRESOLVED",
+        "sequence": 0,
+        "snapshot_sha256": "",
+        "status": "UNRESOLVED",
+        "window_end": 1788512947,
+        "window_start": 1788512647
+      }
+    }
+  ],
+  "complete": true,
+  "version": {
+    "consent_schema": "exact-obligation-digest",
+    "name": "ClausePilot",
+    "version": 2
+  },
+  "sourceSha256": "87e0e0edf5157101fd16506d18aad950d83f0c27a9cdeb16ea49bc3f1c93a06e",
+  "sourceParity": true,
+  "initial": {
+    "agreements": 1,
+    "checkpoints": 1,
+    "obligations": 1
+  },
+  "agreementId": "1",
+  "final": {
+    "agreements": 2,
+    "checkpoints": 4,
+    "obligations": 4
+  },
+  "finishedAt": "2026-09-04T09:22:17.828Z"
+}

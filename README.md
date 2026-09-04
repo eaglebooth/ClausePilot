@@ -2,7 +2,7 @@
 
 ClausePilot is a GenLayer temporal commercial assurance primitive. It binds a bounded obligation to an agreement version, counterparty, approved public source and sealed checkpoint schedule. The counterparty separately accepts an immutable digest of the exact obligation, evidence policy and schedule before monitoring begins. Validators independently fetch and interpret evidence; deterministic code controls consent, provenance, lifecycle and standing updates.
 
-Historical V1 demo: [clausepilot-seven.vercel.app](https://clausepilot-seven.vercel.app) · [V1 monitor](https://clausepilot-seven.vercel.app/monitor). The remediated frontend must be configured with a fresh contract address and redeployed before resubmission.
+Production: [clausepilot-seven.vercel.app](https://clausepilot-seven.vercel.app) · [V2 monitor](https://clausepilot-seven.vercel.app/monitor). StudioNet V2 contract: [`0x03B1d1c9761A8EabfB365dB42AE2F513575c5D89`](https://explorer-studio.genlayer.com/address/0x03B1d1c9761A8EabfB365dB42AE2F513575c5D89).
 
 ## Why GenLayer
 
@@ -42,6 +42,7 @@ See [SPEC.md](SPEC.md) and [docs/THREAT_MODEL.md](docs/THREAT_MODEL.md) for exac
 
 Pre-deployment checks and public fixture digests are recorded in
 [docs/PREDEPLOY_VERIFICATION.md](docs/PREDEPLOY_VERIFICATION.md). The final
-StudioNet address, successful lifecycle chains, adversarial rollbacks and
-authoritative readbacks are recorded in
-[docs/RELEASE_EVIDENCE.md](docs/RELEASE_EVIDENCE.md).
+V2 StudioNet address, exact source parity, lifecycle matrix, adversarial rollbacks and
+authoritative readbacks are recorded in [docs/V2_LIVE_EVIDENCE.md](docs/V2_LIVE_EVIDENCE.md)
+and [docs/v2-suite-results.json](docs/v2-suite-results.json). Historical V1 evidence remains
+available in [docs/RELEASE_EVIDENCE.md](docs/RELEASE_EVIDENCE.md) and is explicitly superseded.

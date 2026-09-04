@@ -11,7 +11,8 @@
     "test": "node --test lib/*.test.ts",
     "deploy:studionet": "node scripts/deploy.mjs",
     "test:live": "node scripts/live-lifecycle.mjs",
-    "test:failure-live": "node scripts/failure-controls.mjs"
+    "test:failure-live": "node scripts/failure-controls.mjs",
+    "test:v2-suite": "node scripts/v2-suite.mjs"
   },
   "dependencies": {
     "genlayer-js": "1.1.8",

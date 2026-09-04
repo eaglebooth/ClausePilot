@@ -1,6 +1,7 @@
 import { createClient } from "genlayer-js";
 import { localnet, studionet, testnetBradbury } from "genlayer-js/chains";
 import { TransactionStatus } from "genlayer-js/types";
+import { finalizedFailure } from "./finality";
 
 type NetworkName = "localnet" | "studionet" | "testnetBradbury";
 declare global { interface Window { ethereum?: { request:(args:{method:string;params?:unknown[]})=>Promise<unknown> } } }
@@ -28,12 +29,6 @@ export async function readContract(functionName:string,args:unknown[]=[]):Promis
   try{return{success:true,data:await(readClient as unknown as RuntimeClient).readContract({address:address(),functionName,args})};}
   catch(error){return{success:false,error:error instanceof Error?error.message:"Contract read failed."};}
 }
-function runtimeFailure(value:unknown,seen=new Set<unknown>()):string{
-  if(!value||typeof value!=="object"||seen.has(value))return"";seen.add(value);
-  const record=value as Record<string,unknown>;const status=String(record.status??record.execution_result??record.txExecutionResultName??"").toUpperCase();
-  if(["ROLLBACK","ERROR","FAILED"].some((part)=>status.includes(part)))return String(record.payload??record.error_description??record.message??status);
-  for(const nested of Object.values(record)){const result=runtimeFailure(nested,seen);if(result)return result;}return"";
-}
 export async function writeContract(functionName:string,args:unknown[]=[]):Promise<Result>{
   if(!window.ethereum)return{success:false,error:"Connect a wallet before writing."};
   if(!address()||/^0x0{40}$/i.test(address()))return{success:false,error:"Deploy and configure the contract first."};
@@ -43,9 +38,9 @@ export async function writeContract(functionName:string,args:unknown[]=[]):Promi
     const client=createClient({chain:chains[network]??studionet,provider:window.ethereum,account:accounts[0] as `0x${string}`}) as unknown as RuntimeClient;
     if(client.connect)await client.connect(network);
     const raw=await client.writeContract({address:address(),functionName,args,value:BigInt(0)});hash=typeof raw==="string"?raw:raw.txId;
-    const receipt=await client.waitForTransactionReceipt({hash:hash as `0x${string}`,status:TransactionStatus.ACCEPTED,interval:2000,retries:100});
-    let transaction=receipt;try{transaction=await client.getTransaction({hash:hash as `0x${string}`});}catch{}
-    const failure=runtimeFailure(transaction)||runtimeFailure(receipt);if(failure)return{success:false,hash,error:`Contract rejected this action: ${failure}`,receipt,transaction};
+    const receipt=await client.waitForTransactionReceipt({hash:hash as `0x${string}`,status:TransactionStatus.FINALIZED,interval:2000,retries:600});
+    const transaction=await client.getTransaction({hash:hash as `0x${string}`});
+    const failure=finalizedFailure(transaction);if(failure)return{success:false,hash,error:failure,receipt,transaction};
     return{success:true,hash,data:receipt,receipt,transaction};
   }catch(error){return{success:false,hash,error:error instanceof Error?error.message:"Contract write failed."};}
 }
