@@ -1,7 +1,7 @@
 # ClausePilot pre-deployment verification
 
 Verified locally: 2026-09-04
-Reviewed commit and contract SHA-256: **pending final commit**
+Reviewed source commit: [`ac40cdba839ff03f9c1627987665b57c9cece7d5`](https://github.com/eaglebooth/ClausePilot/commit/ac40cdba839ff03f9c1627987665b57c9cece7d5)
 Local contract SHA-256: `87e0e0edf5157101fd16506d18aad950d83f0c27a9cdeb16ea49bc3f1c93a06e`
 
 ## Local gates
