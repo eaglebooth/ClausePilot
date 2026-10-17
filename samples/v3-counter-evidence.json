@@ -1,0 +1,6 @@
+{
+  "subject": "ClausePilot V3 Demo API",
+  "observation_period": "2026-10-17T00:00:00+07:00/2026-10-18T00:00:00+07:00",
+  "challenge": "No contradiction found",
+  "statement": "The counterparty review found no outage or contradictory event during the sealed observation window and does not rebut the provisional SATISFIED finding."
+}

@@ -1,0 +1,7 @@
+{
+  "service": "ClausePilot V3 Demo API",
+  "observation_period": "2026-10-17T00:00:00+07:00/2026-10-18T00:00:00+07:00",
+  "status": "operational",
+  "availability": "The ClausePilot V3 Demo API remained available throughout each sealed five-minute observation window on 17 October 2026.",
+  "incidents": []
+}
