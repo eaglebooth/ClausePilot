@@ -3,7 +3,8 @@
 ## Immutable comparison
 
 - Reviewed V2 base: [`831b447`](https://github.com/eaglebooth/ClausePilot/commit/831b4473a4b7ba6e1e6b3c24e1ed92e2a0dab8ad)
-- V3 comparison: replace `V3_RELEASE_COMMIT` after the final source is pushed.
+- Core V3 commit: [`1c8fab9`](https://github.com/eaglebooth/ClausePilot/commit/1c8fab9)
+- Immutable comparison: [`831b447...1c8fab9`](https://github.com/eaglebooth/ClausePilot/compare/831b447...1c8fab9)
 
 ## Before
 
