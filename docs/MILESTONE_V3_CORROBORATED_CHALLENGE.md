@@ -53,6 +53,11 @@ membership, thresholds, authorization, deadlines and terminal transitions.
 
 ## Deployment status
 
-V3 deployment and live evidence are pending. The public Vercel application and
-documented address remain V2 until the final reviewed V3 source completes a
-fresh StudioNet lifecycle.
+V3 is deployed at
+[`0x0350c736033bE5b0e66a15512475D12d573412A4`](https://explorer-studio.genlayer.com/address/0x0350c736033bE5b0e66a15512475D12d573412A4).
+The exact deployed source matches the reviewed local source (SHA-256
+`37557a88273f1f2bec0662583fe1abe471f8f8e33f3f99374418684331c43eca`).
+A two-party lifecycle reached `FINALIZED / SATISFIED` after two-source
+corroboration, counterparty challenge and AI adjudication. Transaction links,
+rollback controls and authoritative readbacks are in
+[V3_LIVE_EVIDENCE.md](V3_LIVE_EVIDENCE.md).

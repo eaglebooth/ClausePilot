@@ -6,9 +6,10 @@ counterparty challenge policy and sealed checkpoint schedule. Validators
 interpret evidence; deterministic code controls consent, provenance, deadlines,
 replay protection and final standing.
 
-Production remains on verified V2 until V3 completes deployment and live proof:
-[clausepilot-seven.vercel.app](https://clausepilot-seven.vercel.app). Historical
-StudioNet V2 contract: [`0x03B1...5D89`](https://explorer-studio.genlayer.com/address/0x03B1d1c9761A8EabfB365dB42AE2F513575c5D89).
+V3 is live on StudioNet at
+[`0x0350...12A4`](https://explorer-studio.genlayer.com/address/0x0350c736033bE5b0e66a15512475D12d573412A4)
+and is served by [clausepilot-seven.vercel.app](https://clausepilot-seven.vercel.app).
+The historical V2 deployment remains documented for comparison only.
 
 ## Why GenLayer
 
@@ -52,9 +53,10 @@ handshake before enabling writes.
 
 See [SPEC.md](SPEC.md) and [docs/THREAT_MODEL.md](docs/THREAT_MODEL.md) for exact claims and limitations.
 
-Pre-deployment checks and public fixture digests are recorded in
-[docs/PREDEPLOY_VERIFICATION.md](docs/PREDEPLOY_VERIFICATION.md). The final
-V2 StudioNet address, exact source parity, lifecycle matrix, adversarial rollbacks and
-authoritative readbacks are recorded in [docs/V2_LIVE_EVIDENCE.md](docs/V2_LIVE_EVIDENCE.md)
-and [docs/v2-suite-results.json](docs/v2-suite-results.json). Historical V1 evidence remains
-available in [docs/RELEASE_EVIDENCE.md](docs/RELEASE_EVIDENCE.md) and is explicitly superseded.
+V3 source parity, finalized lifecycle transactions, sealed evidence digests and
+authoritative readbacks are recorded in
+[docs/V3_LIVE_EVIDENCE.md](docs/V3_LIVE_EVIDENCE.md). The immutable milestone
+comparison is in
+[docs/MILESTONE_V3_CORROBORATED_CHALLENGE.md](docs/MILESTONE_V3_CORROBORATED_CHALLENGE.md).
+Historical V2 and V1 evidence remain available for comparison and are explicitly
+superseded.
