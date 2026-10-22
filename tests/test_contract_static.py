@@ -16,6 +16,8 @@ def test_public_surface_is_present():
         "assess_checkpoint", "submit_challenge", "adjudicate_challenge", "finalize_checkpoint",
         "close_obligation", "get_contract_version", "get_agreement",
         "get_obligation", "get_checkpoint", "get_totals",
+        "expire_checkpoint", "propose_revision", "accept_revision", "cancel_revision",
+        "get_policy_lifecycle", "get_recovery_state",
     ):
         assert f"def {method}(" in SOURCE
 
@@ -68,7 +70,7 @@ def test_counterparty_accepts_exact_immutable_obligation_before_checkpoint():
 
 def test_frontend_can_fail_closed_on_contract_schema_version():
     assert "def get_contract_version(" in SOURCE
-    assert '"consent_schema": "corroborated-challenge-v1"' in SOURCE
+    assert '"consent_schema": "recovery-revisions-v1"' in SOURCE
 
 
 def test_v3_policy_is_bounded_and_consent_bound():

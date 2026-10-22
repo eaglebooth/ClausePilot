@@ -386,11 +386,12 @@ def test_invalid_challenge_policy_is_rejected(origin, seconds):
         )
 
 
-def test_closed_obligation_cannot_finalize_provisional_checkpoint():
+def test_owner_cannot_close_obligation_with_provisional_checkpoint():
     contract, now, _obligation_id, checkpoint_id = _provisional_contract()
     fake_gl.message.sender_address.as_hex = OWNER
-    contract.close_obligation(_obligation_id)
+    with pytest.raises(UserError, match="CHECKPOINT_IN_FLIGHT"):
+        contract.close_obligation(_obligation_id)
     now[0] = 1_000_601
-    with pytest.raises(UserError, match="STALE_CHECKPOINT"):
-        contract.finalize_checkpoint(checkpoint_id)
-    assert json.loads(contract.get_checkpoint(checkpoint_id))["status"] == "PROVISIONAL"
+    assert contract.finalize_checkpoint(checkpoint_id) == "SATISFIED"
+    contract.close_obligation(_obligation_id)
+    assert json.loads(contract.get_checkpoint(checkpoint_id))["status"] == "FINALIZED"

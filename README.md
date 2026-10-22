@@ -1,5 +1,11 @@
 # ClausePilot
 
+V4 implementation is ready for a fresh deployment: bounded checkpoint recovery
+and bilateral policy revisions. See
+[V4 milestone notes](docs/MILESTONE_V4_RECOVERY_REVISIONS.md) and
+[deployment checklist](docs/V4_DEPLOYMENT_CHECKLIST.md). Production remains V3
+until the new contract completes source/schema verification and live tests.
+
 ClausePilot is a GenLayer temporal commercial assurance primitive. V3 binds a
 bounded obligation to 2–4 approved public sources, a corroboration threshold,
 counterparty challenge policy and sealed checkpoint schedule. Validators
