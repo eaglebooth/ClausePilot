@@ -35,13 +35,14 @@ def test_provisional_checkpoint_requires_expiry_or_challenge_resolution():
     assert 'checkpoint.status = "FINALIZED"' in SOURCE
 
 
-def test_validators_independently_fetch_and_apply_comparative_consensus():
-    evaluate = SOURCE.split("def evaluate", 1)[1].split("principle =", 1)[0]
+def test_validators_independently_fetch_and_compare_only_closed_payloads():
+    evaluate = SOURCE.split("def evaluate", 1)[1].split("raw = gl.eq_principle.strict_eq", 1)[0]
     assert '_fetch(str(source["url"]), str(source["marker"]))' in evaluate
     assert "gl.nondet.exec_prompt" in evaluate
-    assert "gl.eq_principle.prompt_comparative(evaluate, principle)" in SOURCE
-    assert "scope_relation, coverage and semantic_state" in SOURCE
-    assert "gl.eq_principle.strict_eq" not in SOURCE
+    assert "gl.eq_principle.strict_eq(evaluate)" in SOURCE
+    assert "_closed_source_verdict(result)" in evaluate
+    assert "gl.eq_principle.strict_eq(evaluate_challenge)" in SOURCE
+    assert "gl.eq_principle.prompt_comparative" not in SOURCE
 
 
 def test_no_custody_or_legal_damages_surface():

@@ -1,7 +1,9 @@
 # ClausePilot V4 — Bounded Recovery and Bilateral Policy Revisions
 
 Prepared: October 22, 2026.
-Status: implementation locally verified; user deployment required.
+Status: remediation locally verified; fresh user deployment required. The first
+V4 deployment passed deterministic revision/recovery checks but failed assessment
+consensus twice. See [live incident evidence](V4_LIVE_EVIDENCE.md).
 
 ## Comparison boundary
 
@@ -49,7 +51,7 @@ Authoritative read failures clear loaded state and disable writes.
 
 ## Verification
 
-- 62 Python tests pass, including mocked contract-runtime transitions and the
+- 68 Python tests pass, including mocked contract-runtime transitions and the
   existing semantic decision/static tests.
 - 8 Node receipt/finality tests pass.
 - GenVM lint and semantic validation pass: 21 methods, 7 view and 14 write.
@@ -59,10 +61,29 @@ Authoritative read failures clear loaded state and disable writes.
 
 These results do not claim live V4 execution or a third-party security audit.
 
+## Consensus hardening after live verification
+
+Two assessment attempts on the initial V4 address finalized MAJORITY_DISAGREE.
+The replacement callback still independently fetches and semantically classifies
+sources, but returns canonical enum fields, snapshot hashes and fixed metadata.
+Strict equality compares these normalized outputs. Model-authored rationale and
+fact phrasing cannot introduce an additional text-equivalence decision. Breach
+support is validated before canonicalization; disagreement remains fail-closed.
+This is not strict equality over open-ended LLM responses. Actual semantic or
+snapshot disagreements can still prevent consensus, and recovery remains required.
+Regression tests exercise independently worded outputs and unsupported breaches.
+This follows the documented boundary between canonical strict equality and
+open-ended LLM comparison in the
+[GenLayer equivalence-principle guide](https://docs.genlayer.com/understand-genlayer-protocol/core-concepts/optimistic-democracy/equivalence-principle).
+
+Replacement local source SHA-256:
+`590d0682d33bdb057feddd31a7cc8a03a01cb5df6a4c24fbd5acdb6b9e0f9e85`.
+
 ## Fresh deployment gate
 
 Deploy `contracts/ClausePilot.py` to StudioNet with no constructor arguments.
-The expected schema is version 4, `recovery-revisions-v1`, with both grace values
+The expected schema is version 4, `recovery-revisions-v1`, with consensus schema
+`closed-evidence-v1` and both grace values
 equal to 3600 seconds. Then run:
 
 ```powershell

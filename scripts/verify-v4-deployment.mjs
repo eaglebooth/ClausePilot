@@ -13,7 +13,7 @@ const version=unwrap(await client.readContract({address,functionName:"get_contra
 const totals=unwrap(await client.readContract({address,functionName:"get_totals",args:[]}));
 const sha=value=>createHash("sha256").update(value).digest("hex");
 const result={network:"studionet",address,version,totals,
- schemaValid:version?.version===4&&version?.name==="ClausePilot"&&version?.consent_schema==="recovery-revisions-v1"&&version?.assessment_grace===3600&&version?.adjudication_grace===3600,
+ schemaValid:version?.version===4&&version?.name==="ClausePilot"&&version?.consent_schema==="recovery-revisions-v1"&&version?.consensus_schema==="closed-evidence-v1"&&version?.assessment_grace===3600&&version?.adjudication_grace===3600,
  sourceParity:Buffer.compare(local,deployed)===0,localSha256:sha(local),deployedSha256:sha(deployed),localBytes:local.length,deployedBytes:deployed.length};
 console.log(JSON.stringify(result,null,2));
 if(!result.sourceParity||!result.schemaValid)process.exitCode=1;

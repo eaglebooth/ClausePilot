@@ -36,6 +36,14 @@ Agreement identity, counterparty binding, source policy, checkpoint sequence, se
 
 ## Residual risks
 
+V4 replacement source compares canonical independently derived verdict fields
+and source hashes using strict equality. Free-form model explanations are
+validated locally and excluded from comparison. This reduces avoidable wording
+variance but cannot eliminate semantic disagreement or differing fetched bytes.
+One-hour assessment/adjudication deadlines and permissionless expiry to UNRESOLVED
+bound stalled checkpoints. Bilateral revisions retire only idle parents and
+start fresh successor schedules without inheriting historical compliance.
+
 Multiple pages can repeat the same false upstream claim and therefore are not
 automatically independent attestations. Public content can change between
 validators. Counter-evidence may also be incomplete or adversarial. V3 reports

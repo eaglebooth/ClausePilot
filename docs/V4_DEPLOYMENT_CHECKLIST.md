@@ -4,6 +4,9 @@
 2. Deploy the complete current `contracts/ClausePilot.py`; constructor takes no arguments.
 3. Return the newly deployed address to the project owner workflow.
 4. Run `node scripts/verify-v4-deployment.mjs ADDRESS`; require sourceParity and schemaValid.
+   The replacement must expose consensus_schema `closed-evidence-v1`. The earlier
+   `0xDDB1fdc8eA22654501bC10b2af7A03f900D4dF7F` candidate lacks this handshake and
+   is retained only as deterministic revision/recovery and failed-assessment evidence.
 5. Record source SHA-256, deployment transaction and network address.
 6. Run two-wallet agreement and obligation consent, checkpoint assessment,
    challenge, adjudication and finalization.

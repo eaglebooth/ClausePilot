@@ -77,6 +77,10 @@ class FakeNondet:
 
 class FakeEqPrinciple:
     @staticmethod
+    def strict_eq(evaluate):
+        return evaluate()
+
+    @staticmethod
     def prompt_comparative(evaluate, _principle):
         return evaluate()
 
