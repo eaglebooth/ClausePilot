@@ -1,0 +1,7 @@
+{
+  "fixture": "Synthetic counter-evidence for protocol testing",
+  "subject": "ClausePilot V4 Demo API",
+  "observation_period": "2026-10-22T00:00:00+07:00/2026-10-24T00:00:00+07:00",
+  "challenge": "No contradiction found",
+  "statement": "The synthetic counterparty review found no outage or contradictory event during any sealed five-minute window in this period and does not rebut the provisional SATISFIED finding."
+}

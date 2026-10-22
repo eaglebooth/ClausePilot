@@ -1,0 +1,8 @@
+{
+  "fixture": "Synthetic test evidence from the same fixture publisher; separate delivery origin does not establish organizational independence",
+  "subject": "ClausePilot V4 Demo API",
+  "observation_period": "2026-10-22T00:00:00+07:00/2026-10-24T00:00:00+07:00",
+  "result": "available",
+  "statement": "In this synthetic scenario, successful responses are observed throughout every sealed five-minute window within the stated observation period.",
+  "exceptions": []
+}

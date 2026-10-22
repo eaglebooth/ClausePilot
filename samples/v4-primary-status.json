@@ -1,0 +1,8 @@
+{
+  "fixture": "Synthetic test evidence; not a real service SLA claim",
+  "service": "ClausePilot V4 Demo API",
+  "observation_period": "2026-10-22T00:00:00+07:00/2026-10-24T00:00:00+07:00",
+  "status": "operational",
+  "availability": "For this synthetic test scenario, the ClausePilot V4 Demo API remains operational throughout every sealed five-minute observation window within the stated period.",
+  "incidents": []
+}
