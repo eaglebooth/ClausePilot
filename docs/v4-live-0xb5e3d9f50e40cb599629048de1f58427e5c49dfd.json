@@ -1,0 +1,905 @@
+{
+  "address": "0xb5E3D9F50e40CB599629048dE1f58427e5c49DfD",
+  "network": "studionet",
+  "transactions": [
+    {
+      "label": "register",
+      "method": "register_agreement",
+      "hash": "0xdf53c19967543b50e7ca9edd61faeb27f680d04c2c5fd4de3037f38126857caa",
+      "verified": true,
+      "returnedId": "0"
+    },
+    {
+      "label": "accept-agreement",
+      "method": "accept_agreement",
+      "hash": "0x6179be4655a057f520676fb3d67a596b3d239772a7f62a1261bec6ef707c8b5d",
+      "verified": true
+    },
+    {
+      "label": "add-Recovery",
+      "method": "add_obligation",
+      "hash": "0x3726655100317f475d4a4533de3eeb4abc32bfb439bf3d51b824df4b9e2bb4fd",
+      "verified": true,
+      "returnedId": "0"
+    },
+    {
+      "label": "accept-Recovery",
+      "method": "accept_obligation",
+      "hash": "0x614cb92962e5256123b928883b091f5535b38fbf11a8f08cb3567046cedbef0f",
+      "verified": true
+    },
+    {
+      "label": "open-recovery",
+      "method": "open_due_checkpoint",
+      "hash": "0x7ea8755dd95f9b1e82cfc8f14d78d08c1ce8905660060fbe9301b5da8d4a832b",
+      "verified": true,
+      "returnedId": "0"
+    },
+    {
+      "label": "early-recovery",
+      "method": "expire_checkpoint",
+      "hash": "0x3195ea8ad08d7cf50c932d9913e01fa00a5c66b19036de1815d105f18281b047",
+      "verified": true,
+      "stateUnchanged": true,
+      "rollback": "RECOVERY_NOT_DUE"
+    },
+    {
+      "label": "add-Normal",
+      "method": "add_obligation",
+      "hash": "0xad39324714f4406f56406f035fc987da59c2b9673b6daa7f7f84ac3bb548b2b5",
+      "verified": true,
+      "returnedId": "1"
+    },
+    {
+      "label": "accept-Normal",
+      "method": "accept_obligation",
+      "hash": "0xea9907913dcfefc999b17744d83fa7bcd7c9a87cfd74c88efb54e53d3455a9c3",
+      "verified": true
+    },
+    {
+      "label": "late-assessment",
+      "method": "assess_checkpoint",
+      "hash": "0x08cf60b8e958250140016ae38b3dc399239da18be3e594f5add149dd57d58628",
+      "verified": true,
+      "stateUnchanged": true,
+      "rollback": "ASSESSMENT_DEADLINE_PASSED"
+    },
+    {
+      "label": "expire-open-checkpoint",
+      "method": "expire_checkpoint",
+      "hash": "0x19ee86d8c987a4c0d6bdeef5fb00543ff47ace5aae55ca0d4bc98f7240116c8e",
+      "verified": true
+    },
+    {
+      "label": "expiry-replay",
+      "method": "expire_checkpoint",
+      "hash": "0xe7048fd5c8e4b56c3bd0b23da09f3a400905c62c2a82528ca26593f28d5ddb89",
+      "verified": true,
+      "stateUnchanged": true,
+      "rollback": "STALE_CHECKPOINT"
+    },
+    {
+      "label": "propose-revision",
+      "method": "propose_revision",
+      "hash": "0x379d0e40d10c75984331008c2f771766784354ee1cb3a72ed850a0bcb98570de",
+      "verified": true,
+      "returnedId": "2",
+      "recoveredFromHistory": true
+    },
+    {
+      "label": "propose-alternative",
+      "method": "propose_revision",
+      "hash": "0x2029f011a9c0cca6b161485f540b091c535d155bb55a3cb3cad14dfaf417895d",
+      "verified": true,
+      "returnedId": "3"
+    },
+    {
+      "label": "propose-cancelled",
+      "method": "propose_revision",
+      "hash": "0x7813287e25798b6ab86e560d28e2e1e525f42f71d9b3e3dbfa0bf38af30c88b2",
+      "verified": true,
+      "returnedId": "4"
+    },
+    {
+      "label": "cancel-revision",
+      "method": "cancel_revision",
+      "hash": "0x7c46b67a9bfdcfbd485084fda27cc1ee59bed103511216c40fb17defc5b6b4e0",
+      "verified": true
+    },
+    {
+      "label": "revision-old-entrypoint",
+      "method": "accept_obligation",
+      "hash": "0xdacd6851072297ff5e31def32941899cc1ae1a31b10ce85f417c8f8577adf655",
+      "verified": true,
+      "stateUnchanged": true,
+      "rollback": "USE_ACCEPT_REVISION"
+    },
+    {
+      "label": "revision-wrong-role",
+      "method": "accept_revision",
+      "hash": "0xc958863a364b8abc2ba31cd2687f910ff8833f44baea38ffac6b83605e72504b",
+      "verified": true,
+      "stateUnchanged": true,
+      "rollback": "COUNTERPARTY_ONLY"
+    },
+    {
+      "label": "revision-wrong-digest",
+      "method": "accept_revision",
+      "hash": "0x2c2477c69dc06c289ef74e86a189d9947b784f9e7e3ff89332ba05f8576aff85",
+      "verified": true,
+      "stateUnchanged": true,
+      "rollback": "TERMS_DIGEST_MISMATCH"
+    },
+    {
+      "label": "accept-revision",
+      "method": "accept_revision",
+      "hash": "0x9573d235b6b09abde5f1ea3657c5fbbff5114678ddb1e8668a3e6ce95330eaf3",
+      "verified": true
+    },
+    {
+      "label": "open-successor",
+      "method": "open_due_checkpoint",
+      "hash": "0x91a4f7a9f661a96c5509ca71685df897de48b8c924a1c3785f49485772442b79",
+      "verified": true,
+      "returnedId": "1"
+    },
+    {
+      "label": "revision-competing-stale",
+      "method": "accept_revision",
+      "hash": "0x5ed23e1a58f519f2da6160806e21d498727ac5e26c3c0d266158854d1a99e4ab",
+      "verified": true,
+      "stateUnchanged": true,
+      "rollback": "REVISION_STALE"
+    },
+    {
+      "label": "revision-accept-replay",
+      "method": "accept_revision",
+      "hash": "0xcd012ae6c6e0173505bd94f9a8b85befbd375f4053048fa4190f0b90925d1394",
+      "verified": true,
+      "stateUnchanged": true,
+      "rollback": "REVISION_NOT_PENDING"
+    },
+    {
+      "label": "close-live-checkpoint",
+      "method": "close_obligation",
+      "hash": "0x51f49b7415e079224484d18ce5f944f22ac1082855bf0d3a2aeea8c9a854b699",
+      "verified": true,
+      "stateUnchanged": true,
+      "rollback": "CHECKPOINT_IN_FLIGHT"
+    },
+    {
+      "label": "assess-successor",
+      "method": "assess_checkpoint",
+      "hash": "0x8c850ac609ae479c4f7b1d380c035e5ad825659ed4cc326a8cdd96ce68f2da0b",
+      "verified": true
+    },
+    {
+      "label": "challenge-successor",
+      "method": "submit_challenge",
+      "hash": "0xe1ac0aced22375e07c5782139f6d57f2588357d212b7fcd845a4c3b07a09591f",
+      "verified": true,
+      "failure": "Contract rejected this action: CHALLENGE_NOT_OPEN",
+      "consensusResult": "MAJORITY_AGREE"
+    },
+    {
+      "label": "finalize-successor-unchallenged",
+      "method": "finalize_checkpoint",
+      "hash": "0xe3c3eb2117e187839bfb138106c5d4e698f309aa1d384b13db05759ed4414d11",
+      "verified": true
+    },
+    {
+      "label": "add-long-challenge",
+      "method": "add_obligation",
+      "hash": "0xabda28813c2cf52c25d5f1c32609d18659efac89576199203b0d1957f78b8d56",
+      "verified": true,
+      "returnedId": "5"
+    },
+    {
+      "label": "accept-long-challenge",
+      "method": "accept_obligation",
+      "hash": "0xda0d1154465ce9468cd0011df73346a3f4c187c03fb89982c9fedcd09b0376ff",
+      "verified": true
+    },
+    {
+      "label": "open-long-challenge",
+      "method": "open_due_checkpoint",
+      "hash": "0x70b27296fb0d1e3719967f55526407793dca365f11e38fd0f6aab7cb27901efe",
+      "verified": true,
+      "returnedId": "2"
+    },
+    {
+      "label": "open-long-challenge-slot-1",
+      "method": "open_due_checkpoint",
+      "hash": "0x322f51551b9e17d47a0cc914784c344fcd11b9fbcc3280759e398a9802552d07",
+      "verified": true,
+      "returnedId": "3"
+    },
+    {
+      "label": "assess-long-challenge",
+      "method": "assess_checkpoint",
+      "hash": "0x4297874681df557a0203515c85c873f0c7bcae5299474bc45123cd314bb19138",
+      "verified": true,
+      "failure": "Finalized transaction has no successful consensus.",
+      "consensusResult": "MAJORITY_DISAGREE"
+    },
+    {
+      "label": "recover-failed-long-assessment",
+      "method": "expire_checkpoint",
+      "hash": "0xb10ae43d9659086817f2e6d5006eae2db5c7c6723ccfea6b2cfded6e497a622c",
+      "verified": true
+    }
+  ],
+  "ids": {
+    "agreement": "0",
+    "obRecovery": "0",
+    "cpRecovery": "0",
+    "obNormal": "1",
+    "revAccepted": "2",
+    "revStale": "3",
+    "revCancelled": "4",
+    "cpNormal": "1",
+    "obChallenge": "5",
+    "cpChallenge": "2",
+    "cpChallengeSlot1": "3"
+  },
+  "readbacks": {
+    "recovery": {
+      "totals": {
+        "agreements": 1,
+        "checkpoints": 1,
+        "obligations": 2
+      },
+      "obRecovery": [
+        {
+          "accepted": true,
+          "accepted_at": 1792654271,
+          "active": true,
+          "agreement_id": "0",
+          "cadence_seconds": 3600,
+          "challenge_origin": "https://cdn.statically.io",
+          "challenge_seconds": 300,
+          "corroboration_threshold": 2,
+          "kind": "UPTIME",
+          "latest_checkpoint_id": "0",
+          "next_due_at": 1792657831,
+          "obligation_id": "0",
+          "obligation_key": "v4-recovery",
+          "open_checkpoint_id": "",
+          "owner": "0xfed97e2ae1a8c1983b7ca206b3545e6a2c685e43",
+          "requirement": "For this synthetic test, assess whether the ClausePilot V4 Demo API remained available during the sealed observation window.",
+          "sequence": 1,
+          "source_count": 2,
+          "sources": [
+            {
+              "marker": "ClausePilot V4 Demo API",
+              "origin": "https://raw.githubusercontent.com",
+              "url": "https://raw.githubusercontent.com/eaglebooth/ClausePilot/3e16b30/samples/v4-primary-status.json"
+            },
+            {
+              "marker": "ClausePilot V4 Demo API",
+              "origin": "https://cdn.jsdelivr.net",
+              "url": "https://cdn.jsdelivr.net/gh/eaglebooth/ClausePilot@3e16b30/samples/v4-monitor-attestation.json"
+            }
+          ],
+          "standing": "UNRESOLVED",
+          "terms_digest": "426336df38745c619dc78cf5e8fe352549398f7274d84bf9b2c357deea78a11f",
+          "title": "Synthetic protocol availability",
+          "window_seconds": 300
+        },
+        {
+          "active": true,
+          "adjudication_grace": 3600,
+          "assessment_grace": 3600,
+          "counterparty": "0xc67532aef9d2879cba9375a02e6217a3524657b8",
+          "obligation_id": "0",
+          "open_checkpoint_id": "",
+          "owner": "0xfed97e2ae1a8c1983b7ca206b3545e6a2c685e43",
+          "parent_id": "",
+          "revision": 0,
+          "revision_status": "ORIGINAL",
+          "stale": false,
+          "successor_id": ""
+        }
+      ],
+      "cpRecovery": {
+        "agreement_version": "v4",
+        "challenge_deadline": 0,
+        "challenge_decision": "ASSESSMENT_TIMEOUT",
+        "challenge_expected_sha256": "",
+        "challenge_marker": "",
+        "challenge_snapshot_sha256": "",
+        "challenge_submitted_at": 0,
+        "challenge_url": "",
+        "checkpoint_id": "0",
+        "final_state": "UNRESOLVED",
+        "obligation_id": "0",
+        "observed_at": 0,
+        "provisional_state": "UNRESOLVED",
+        "rationale": "Processing deadline passed; no compliance finding inferred.",
+        "sequence": 0,
+        "source_results": [],
+        "status": "FINALIZED",
+        "window_end": 1792654531,
+        "window_start": 1792654231
+      },
+      "obNormal": [
+        {
+          "accepted": true,
+          "accepted_at": 1792654451,
+          "active": true,
+          "agreement_id": "0",
+          "cadence_seconds": 3600,
+          "challenge_origin": "https://cdn.statically.io",
+          "challenge_seconds": 300,
+          "corroboration_threshold": 2,
+          "kind": "UPTIME",
+          "latest_checkpoint_id": "",
+          "next_due_at": 1792654406,
+          "obligation_id": "1",
+          "obligation_key": "v4-normal",
+          "open_checkpoint_id": "",
+          "owner": "0xfed97e2ae1a8c1983b7ca206b3545e6a2c685e43",
+          "requirement": "For this synthetic test, assess whether the ClausePilot V4 Demo API remained available during the sealed observation window.",
+          "sequence": 0,
+          "source_count": 2,
+          "sources": [
+            {
+              "marker": "ClausePilot V4 Demo API",
+              "origin": "https://raw.githubusercontent.com",
+              "url": "https://raw.githubusercontent.com/eaglebooth/ClausePilot/3e16b30/samples/v4-primary-status.json"
+            },
+            {
+              "marker": "ClausePilot V4 Demo API",
+              "origin": "https://cdn.jsdelivr.net",
+              "url": "https://cdn.jsdelivr.net/gh/eaglebooth/ClausePilot@3e16b30/samples/v4-monitor-attestation.json"
+            }
+          ],
+          "standing": "UNRESOLVED",
+          "terms_digest": "f9e19b2e0d3c639f541bc60958394563974b45c898ee08009b282f8dfc7100f3",
+          "title": "Synthetic protocol availability",
+          "window_seconds": 300
+        },
+        {
+          "active": true,
+          "adjudication_grace": 3600,
+          "assessment_grace": 3600,
+          "counterparty": "0xc67532aef9d2879cba9375a02e6217a3524657b8",
+          "obligation_id": "1",
+          "open_checkpoint_id": "",
+          "owner": "0xfed97e2ae1a8c1983b7ca206b3545e6a2c685e43",
+          "parent_id": "",
+          "revision": 0,
+          "revision_status": "ORIGINAL",
+          "stale": false,
+          "successor_id": ""
+        }
+      ]
+    },
+    "successorFinal": {
+      "agreement_version": "v4",
+      "challenge_deadline": 1792723223,
+      "challenge_decision": "UNCHALLENGED",
+      "challenge_expected_sha256": "",
+      "challenge_marker": "",
+      "challenge_snapshot_sha256": "",
+      "challenge_submitted_at": 0,
+      "challenge_url": "",
+      "checkpoint_id": "1",
+      "final_state": "SATISFIED",
+      "obligation_id": "2",
+      "observed_at": 1792722923,
+      "provisional_state": "SATISFIED",
+      "rationale": "Corroboration threshold met.",
+      "sequence": 0,
+      "source_results": {
+        "errors": [],
+        "qualified": [
+          {
+            "result": {
+              "coverage": "SUFFICIENT",
+              "scope_relation": "MATCH",
+              "semantic_state": "SATISFIED"
+            },
+            "sha256": "ac42653b738289bbc1732325b0d04cad339ddb6073fc1f45ddade8e5647b06f5",
+            "source_index": 0
+          },
+          {
+            "result": {
+              "coverage": "SUFFICIENT",
+              "scope_relation": "MATCH",
+              "semantic_state": "SATISFIED"
+            },
+            "sha256": "ed62f9dc4fc64c6410058b6e50e497b65887bce0d0e00fa0dc3f60aad8eeb982",
+            "source_index": 1
+          }
+        ]
+      },
+      "status": "FINALIZED",
+      "window_end": 1792721768,
+      "window_start": 1792721468
+    },
+    "missedChallengeSlot-2": {
+      "agreement_version": "v4",
+      "challenge_deadline": 0,
+      "challenge_decision": "MISSED_SCHEDULE",
+      "challenge_expected_sha256": "",
+      "challenge_marker": "",
+      "challenge_snapshot_sha256": "",
+      "challenge_submitted_at": 0,
+      "challenge_url": "",
+      "checkpoint_id": "2",
+      "final_state": "UNRESOLVED",
+      "obligation_id": "5",
+      "observed_at": 1792726766,
+      "provisional_state": "UNRESOLVED",
+      "rationale": "Scheduled observation window was missed; no retrospective inference was attempted.",
+      "sequence": 0,
+      "source_results": [],
+      "status": "FINALIZED",
+      "window_end": 1792723669,
+      "window_start": 1792723369
+    },
+    "failedLongRecovery": {
+      "agreement_version": "v4",
+      "challenge_deadline": 0,
+      "challenge_decision": "ASSESSMENT_TIMEOUT",
+      "challenge_expected_sha256": "",
+      "challenge_marker": "",
+      "challenge_snapshot_sha256": "",
+      "challenge_submitted_at": 0,
+      "challenge_url": "",
+      "checkpoint_id": "3",
+      "final_state": "UNRESOLVED",
+      "obligation_id": "5",
+      "observed_at": 0,
+      "provisional_state": "UNRESOLVED",
+      "rationale": "Processing deadline passed; no compliance finding inferred.",
+      "sequence": 1,
+      "source_results": [],
+      "status": "FINALIZED",
+      "window_end": 1792727269,
+      "window_start": 1792726969
+    }
+  },
+  "version": {
+    "adjudication_grace": 3600,
+    "assessment_grace": 3600,
+    "consensus_schema": "closed-evidence-v1",
+    "consent_schema": "recovery-revisions-v1",
+    "name": "ClausePilot",
+    "version": 4
+  },
+  "recovery": {
+    "chain_time": 1792654486,
+    "checkpoint_id": "0",
+    "deadline": 1792658131,
+    "eligible": false,
+    "status": "OPEN"
+  },
+  "latest": {
+    "totals": {
+      "agreements": 1,
+      "checkpoints": 4,
+      "obligations": 6
+    },
+    "obRecovery": [
+      {
+        "accepted": true,
+        "accepted_at": 1792654271,
+        "active": true,
+        "agreement_id": "0",
+        "cadence_seconds": 3600,
+        "challenge_origin": "https://cdn.statically.io",
+        "challenge_seconds": 300,
+        "corroboration_threshold": 2,
+        "kind": "UPTIME",
+        "latest_checkpoint_id": "0",
+        "next_due_at": 1792657831,
+        "obligation_id": "0",
+        "obligation_key": "v4-recovery",
+        "open_checkpoint_id": "",
+        "owner": "0xfed97e2ae1a8c1983b7ca206b3545e6a2c685e43",
+        "requirement": "For this synthetic test, assess whether the ClausePilot V4 Demo API remained available during the sealed observation window.",
+        "sequence": 1,
+        "source_count": 2,
+        "sources": [
+          {
+            "marker": "ClausePilot V4 Demo API",
+            "origin": "https://raw.githubusercontent.com",
+            "url": "https://raw.githubusercontent.com/eaglebooth/ClausePilot/3e16b30/samples/v4-primary-status.json"
+          },
+          {
+            "marker": "ClausePilot V4 Demo API",
+            "origin": "https://cdn.jsdelivr.net",
+            "url": "https://cdn.jsdelivr.net/gh/eaglebooth/ClausePilot@3e16b30/samples/v4-monitor-attestation.json"
+          }
+        ],
+        "standing": "UNRESOLVED",
+        "terms_digest": "426336df38745c619dc78cf5e8fe352549398f7274d84bf9b2c357deea78a11f",
+        "title": "Synthetic protocol availability",
+        "window_seconds": 300
+      },
+      {
+        "active": true,
+        "adjudication_grace": 3600,
+        "assessment_grace": 3600,
+        "counterparty": "0xc67532aef9d2879cba9375a02e6217a3524657b8",
+        "obligation_id": "0",
+        "open_checkpoint_id": "",
+        "owner": "0xfed97e2ae1a8c1983b7ca206b3545e6a2c685e43",
+        "parent_id": "",
+        "revision": 0,
+        "revision_status": "ORIGINAL",
+        "stale": false,
+        "successor_id": ""
+      }
+    ],
+    "cpRecovery": {
+      "agreement_version": "v4",
+      "challenge_deadline": 0,
+      "challenge_decision": "ASSESSMENT_TIMEOUT",
+      "challenge_expected_sha256": "",
+      "challenge_marker": "",
+      "challenge_snapshot_sha256": "",
+      "challenge_submitted_at": 0,
+      "challenge_url": "",
+      "checkpoint_id": "0",
+      "final_state": "UNRESOLVED",
+      "obligation_id": "0",
+      "observed_at": 0,
+      "provisional_state": "UNRESOLVED",
+      "rationale": "Processing deadline passed; no compliance finding inferred.",
+      "sequence": 0,
+      "source_results": [],
+      "status": "FINALIZED",
+      "window_end": 1792654531,
+      "window_start": 1792654231
+    },
+    "obNormal": [
+      {
+        "accepted": true,
+        "accepted_at": 1792654451,
+        "active": false,
+        "agreement_id": "0",
+        "cadence_seconds": 3600,
+        "challenge_origin": "https://cdn.statically.io",
+        "challenge_seconds": 300,
+        "corroboration_threshold": 2,
+        "kind": "UPTIME",
+        "latest_checkpoint_id": "",
+        "next_due_at": 1792654406,
+        "obligation_id": "1",
+        "obligation_key": "v4-normal",
+        "open_checkpoint_id": "",
+        "owner": "0xfed97e2ae1a8c1983b7ca206b3545e6a2c685e43",
+        "requirement": "For this synthetic test, assess whether the ClausePilot V4 Demo API remained available during the sealed observation window.",
+        "sequence": 0,
+        "source_count": 2,
+        "sources": [
+          {
+            "marker": "ClausePilot V4 Demo API",
+            "origin": "https://raw.githubusercontent.com",
+            "url": "https://raw.githubusercontent.com/eaglebooth/ClausePilot/3e16b30/samples/v4-primary-status.json"
+          },
+          {
+            "marker": "ClausePilot V4 Demo API",
+            "origin": "https://cdn.jsdelivr.net",
+            "url": "https://cdn.jsdelivr.net/gh/eaglebooth/ClausePilot@3e16b30/samples/v4-monitor-attestation.json"
+          }
+        ],
+        "standing": "UNRESOLVED",
+        "terms_digest": "f9e19b2e0d3c639f541bc60958394563974b45c898ee08009b282f8dfc7100f3",
+        "title": "Synthetic protocol availability",
+        "window_seconds": 300
+      },
+      {
+        "active": false,
+        "adjudication_grace": 3600,
+        "assessment_grace": 3600,
+        "counterparty": "0xc67532aef9d2879cba9375a02e6217a3524657b8",
+        "obligation_id": "1",
+        "open_checkpoint_id": "",
+        "owner": "0xfed97e2ae1a8c1983b7ca206b3545e6a2c685e43",
+        "parent_id": "",
+        "revision": 0,
+        "revision_status": "ORIGINAL",
+        "stale": false,
+        "successor_id": "2"
+      }
+    ],
+    "revAccepted": [
+      {
+        "accepted": true,
+        "accepted_at": 1792721468,
+        "active": true,
+        "agreement_id": "0",
+        "cadence_seconds": 3600,
+        "challenge_origin": "https://cdn.statically.io",
+        "challenge_seconds": 300,
+        "corroboration_threshold": 2,
+        "kind": "UPTIME",
+        "latest_checkpoint_id": "1",
+        "next_due_at": 1792725068,
+        "obligation_id": "2",
+        "obligation_key": "v4-successor",
+        "open_checkpoint_id": "",
+        "owner": "0xfed97e2ae1a8c1983b7ca206b3545e6a2c685e43",
+        "requirement": "For this synthetic test, assess whether the ClausePilot V4 Demo API remained available during the sealed observation window.",
+        "sequence": 1,
+        "source_count": 2,
+        "sources": [
+          {
+            "marker": "ClausePilot V4 Demo API",
+            "origin": "https://raw.githubusercontent.com",
+            "url": "https://raw.githubusercontent.com/eaglebooth/ClausePilot/3e16b30/samples/v4-primary-status.json"
+          },
+          {
+            "marker": "ClausePilot V4 Demo API",
+            "origin": "https://cdn.jsdelivr.net",
+            "url": "https://cdn.jsdelivr.net/gh/eaglebooth/ClausePilot@3e16b30/samples/v4-monitor-attestation.json"
+          }
+        ],
+        "standing": "SATISFIED",
+        "terms_digest": "2aef0efac851de07a86926a83a6c6812bfdbaa28934cf01e1d91da07adfa3e05",
+        "title": "Synthetic protocol availability",
+        "window_seconds": 300
+      },
+      {
+        "active": true,
+        "adjudication_grace": 3600,
+        "assessment_grace": 3600,
+        "counterparty": "0xc67532aef9d2879cba9375a02e6217a3524657b8",
+        "obligation_id": "2",
+        "open_checkpoint_id": "",
+        "owner": "0xfed97e2ae1a8c1983b7ca206b3545e6a2c685e43",
+        "parent_id": "1",
+        "revision": 1,
+        "revision_status": "ACCEPTED",
+        "stale": false,
+        "successor_id": ""
+      }
+    ],
+    "revStale": [
+      {
+        "accepted": false,
+        "accepted_at": 0,
+        "active": true,
+        "agreement_id": "0",
+        "cadence_seconds": 3600,
+        "challenge_origin": "https://cdn.statically.io",
+        "challenge_seconds": 300,
+        "corroboration_threshold": 2,
+        "kind": "UPTIME",
+        "latest_checkpoint_id": "",
+        "next_due_at": 1792720307,
+        "obligation_id": "3",
+        "obligation_key": "v4-alternative",
+        "open_checkpoint_id": "",
+        "owner": "0xfed97e2ae1a8c1983b7ca206b3545e6a2c685e43",
+        "requirement": "For this synthetic test, assess whether the ClausePilot V4 Demo API remained available during the sealed observation window.",
+        "sequence": 0,
+        "source_count": 2,
+        "sources": [
+          {
+            "marker": "ClausePilot V4 Demo API",
+            "origin": "https://raw.githubusercontent.com",
+            "url": "https://raw.githubusercontent.com/eaglebooth/ClausePilot/3e16b30/samples/v4-primary-status.json"
+          },
+          {
+            "marker": "ClausePilot V4 Demo API",
+            "origin": "https://cdn.jsdelivr.net",
+            "url": "https://cdn.jsdelivr.net/gh/eaglebooth/ClausePilot@3e16b30/samples/v4-monitor-attestation.json"
+          }
+        ],
+        "standing": "UNRESOLVED",
+        "terms_digest": "b96083110873e52cf5cca6d20796351cab9802380c5ea20022b1de565a33f7ef",
+        "title": "Synthetic protocol availability",
+        "window_seconds": 300
+      },
+      {
+        "active": true,
+        "adjudication_grace": 3600,
+        "assessment_grace": 3600,
+        "counterparty": "0xc67532aef9d2879cba9375a02e6217a3524657b8",
+        "obligation_id": "3",
+        "open_checkpoint_id": "",
+        "owner": "0xfed97e2ae1a8c1983b7ca206b3545e6a2c685e43",
+        "parent_id": "1",
+        "revision": 1,
+        "revision_status": "PENDING",
+        "stale": true,
+        "successor_id": ""
+      }
+    ],
+    "revCancelled": [
+      {
+        "accepted": false,
+        "accepted_at": 0,
+        "active": false,
+        "agreement_id": "0",
+        "cadence_seconds": 3600,
+        "challenge_origin": "https://cdn.statically.io",
+        "challenge_seconds": 300,
+        "corroboration_threshold": 2,
+        "kind": "UPTIME",
+        "latest_checkpoint_id": "",
+        "next_due_at": 1792720981,
+        "obligation_id": "4",
+        "obligation_key": "v4-cancelled",
+        "open_checkpoint_id": "",
+        "owner": "0xfed97e2ae1a8c1983b7ca206b3545e6a2c685e43",
+        "requirement": "For this synthetic test, assess whether the ClausePilot V4 Demo API remained available during the sealed observation window.",
+        "sequence": 0,
+        "source_count": 2,
+        "sources": [
+          {
+            "marker": "ClausePilot V4 Demo API",
+            "origin": "https://raw.githubusercontent.com",
+            "url": "https://raw.githubusercontent.com/eaglebooth/ClausePilot/3e16b30/samples/v4-primary-status.json"
+          },
+          {
+            "marker": "ClausePilot V4 Demo API",
+            "origin": "https://cdn.jsdelivr.net",
+            "url": "https://cdn.jsdelivr.net/gh/eaglebooth/ClausePilot@3e16b30/samples/v4-monitor-attestation.json"
+          }
+        ],
+        "standing": "UNRESOLVED",
+        "terms_digest": "1ad24e8b25bade5e56c62023bc5e651b5f9c76370a33d9352da8ec102f718200",
+        "title": "Synthetic protocol availability",
+        "window_seconds": 300
+      },
+      {
+        "active": false,
+        "adjudication_grace": 3600,
+        "assessment_grace": 3600,
+        "counterparty": "0xc67532aef9d2879cba9375a02e6217a3524657b8",
+        "obligation_id": "4",
+        "open_checkpoint_id": "",
+        "owner": "0xfed97e2ae1a8c1983b7ca206b3545e6a2c685e43",
+        "parent_id": "1",
+        "revision": 1,
+        "revision_status": "CANCELLED",
+        "stale": false,
+        "successor_id": ""
+      }
+    ],
+    "cpNormal": {
+      "agreement_version": "v4",
+      "challenge_deadline": 1792723223,
+      "challenge_decision": "UNCHALLENGED",
+      "challenge_expected_sha256": "",
+      "challenge_marker": "",
+      "challenge_snapshot_sha256": "",
+      "challenge_submitted_at": 0,
+      "challenge_url": "",
+      "checkpoint_id": "1",
+      "final_state": "SATISFIED",
+      "obligation_id": "2",
+      "observed_at": 1792722923,
+      "provisional_state": "SATISFIED",
+      "rationale": "Corroboration threshold met.",
+      "sequence": 0,
+      "source_results": {
+        "errors": [],
+        "qualified": [
+          {
+            "result": {
+              "coverage": "SUFFICIENT",
+              "scope_relation": "MATCH",
+              "semantic_state": "SATISFIED"
+            },
+            "sha256": "ac42653b738289bbc1732325b0d04cad339ddb6073fc1f45ddade8e5647b06f5",
+            "source_index": 0
+          },
+          {
+            "result": {
+              "coverage": "SUFFICIENT",
+              "scope_relation": "MATCH",
+              "semantic_state": "SATISFIED"
+            },
+            "sha256": "ed62f9dc4fc64c6410058b6e50e497b65887bce0d0e00fa0dc3f60aad8eeb982",
+            "source_index": 1
+          }
+        ]
+      },
+      "status": "FINALIZED",
+      "window_end": 1792721768,
+      "window_start": 1792721468
+    },
+    "obChallenge": [
+      {
+        "accepted": true,
+        "accepted_at": 1792723413,
+        "active": true,
+        "agreement_id": "0",
+        "cadence_seconds": 3600,
+        "challenge_origin": "https://cdn.statically.io",
+        "challenge_seconds": 3600,
+        "corroboration_threshold": 2,
+        "kind": "UPTIME",
+        "latest_checkpoint_id": "3",
+        "next_due_at": 1792730569,
+        "obligation_id": "5",
+        "obligation_key": "v4-long-challenge",
+        "open_checkpoint_id": "",
+        "owner": "0xfed97e2ae1a8c1983b7ca206b3545e6a2c685e43",
+        "requirement": "For this synthetic test, assess whether the ClausePilot V4 Demo API remained available during the sealed observation window.",
+        "sequence": 2,
+        "source_count": 2,
+        "sources": [
+          {
+            "marker": "ClausePilot V4 Demo API",
+            "origin": "https://raw.githubusercontent.com",
+            "url": "https://raw.githubusercontent.com/eaglebooth/ClausePilot/3e16b30/samples/v4-primary-status.json"
+          },
+          {
+            "marker": "ClausePilot V4 Demo API",
+            "origin": "https://cdn.jsdelivr.net",
+            "url": "https://cdn.jsdelivr.net/gh/eaglebooth/ClausePilot@3e16b30/samples/v4-monitor-attestation.json"
+          }
+        ],
+        "standing": "UNRESOLVED",
+        "terms_digest": "0f6e1f68fb9e5341727f59d874c9efc5e303f829b2db8c3d3af5d198010ec626",
+        "title": "Synthetic protocol availability",
+        "window_seconds": 300
+      },
+      {
+        "active": true,
+        "adjudication_grace": 3600,
+        "assessment_grace": 3600,
+        "counterparty": "0xc67532aef9d2879cba9375a02e6217a3524657b8",
+        "obligation_id": "5",
+        "open_checkpoint_id": "",
+        "owner": "0xfed97e2ae1a8c1983b7ca206b3545e6a2c685e43",
+        "parent_id": "",
+        "revision": 0,
+        "revision_status": "ORIGINAL",
+        "stale": false,
+        "successor_id": ""
+      }
+    ],
+    "cpChallenge": {
+      "agreement_version": "v4",
+      "challenge_deadline": 0,
+      "challenge_decision": "MISSED_SCHEDULE",
+      "challenge_expected_sha256": "",
+      "challenge_marker": "",
+      "challenge_snapshot_sha256": "",
+      "challenge_submitted_at": 0,
+      "challenge_url": "",
+      "checkpoint_id": "2",
+      "final_state": "UNRESOLVED",
+      "obligation_id": "5",
+      "observed_at": 1792726766,
+      "provisional_state": "UNRESOLVED",
+      "rationale": "Scheduled observation window was missed; no retrospective inference was attempted.",
+      "sequence": 0,
+      "source_results": [],
+      "status": "FINALIZED",
+      "window_end": 1792723669,
+      "window_start": 1792723369
+    },
+    "cpChallengeSlot1": {
+      "agreement_version": "v4",
+      "challenge_deadline": 0,
+      "challenge_decision": "ASSESSMENT_TIMEOUT",
+      "challenge_expected_sha256": "",
+      "challenge_marker": "",
+      "challenge_snapshot_sha256": "",
+      "challenge_submitted_at": 0,
+      "challenge_url": "",
+      "checkpoint_id": "3",
+      "final_state": "UNRESOLVED",
+      "obligation_id": "5",
+      "observed_at": 0,
+      "provisional_state": "UNRESOLVED",
+      "rationale": "Processing deadline passed; no compliance finding inferred.",
+      "sequence": 1,
+      "source_results": [],
+      "status": "FINALIZED",
+      "window_end": 1792727269,
+      "window_start": 1792726969
+    }
+  },
+  "activeChallengeCheckpoint": "3"
+}

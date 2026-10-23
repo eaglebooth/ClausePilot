@@ -1,9 +1,14 @@
 # ClausePilot V4 — Bounded Recovery and Bilateral Policy Revisions
 
 Prepared: October 22, 2026.
-Status: remediation locally verified; fresh user deployment required. The first
-V4 deployment passed deterministic revision/recovery checks but failed assessment
-consensus twice. See [live incident evidence](V4_LIVE_EVIDENCE.md).
+Status: replacement deployed at `0xb5E3D9F50e40CB599629048dE1f58427e5c49DfD`;
+source parity and deterministic recovery/revision controls verified. One successor
+assessment and unchallenged finalization succeeded, but a second observation
+finalized MAJORITY_DISAGREE with leader INVALID_MODEL_OUTPUT packets. Rollout is
+blocked pending diagnosis; challenge/adjudication are not verified. Production still uses V3. See
+[replacement evidence](V4_CLOSED_LIVE_EVIDENCE.md). The first V4 deployment passed
+deterministic revision/recovery checks but failed assessment consensus twice;
+that [historical incident evidence](V4_LIVE_EVIDENCE.md) remains available.
 
 ## Comparison boundary
 

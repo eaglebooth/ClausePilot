@@ -31,7 +31,19 @@ if(!cliCode.includes(parser))throw Error("Unsupported GenLayer CLI parser");
 cliCode=cliCode.replace(parser,parser+'\n  if (value.startsWith("cpstr#")) return Buffer.from(value.slice(6), "base64").toString("utf8");');
 const cli=join(temp,"cli.mjs");
 await writeFile(cli,cliCode);
-async function command(args){try{return (await run(process.execPath,[cli,...args],{maxBuffer:64*1024*1024,timeout:900000})).stdout;}catch{throw Error(`CLI command failed (${args[0]}). No automatic resubmission; inspect saved hashes.`);}}
+async function command(args,onHash){
+ if(!onHash){try{return(await run(process.execPath,[cli,...args],{maxBuffer:64*1024*1024,timeout:900000})).stdout;}catch{throw Error(`CLI command failed (${args[0]}). Inspect saved hashes before retry.`);}}
+ return new Promise((resolve,reject)=>{
+  let observed=false,buffer="",persist=Promise.resolve();
+  const child=execFile(process.execPath,[cli,...args],{maxBuffer:64*1024*1024,timeout:900000},(error,stdout)=>{
+   persist.then(()=>{if(error&&!observed)reject(Error("CLI submission interrupted; inspect chain history before retry"));else resolve(stdout);}).catch(reject);
+  });
+  child.stdout.on("data",chunk=>{
+   buffer+=String(chunk);const hash=buffer.match(/Write Transaction Hash:\s*(0x[0-9a-fA-F]{64})/)?.[1];
+   if(hash&&!observed){observed=true;persist=persist.then(()=>onHash(hash));}
+  });
+ });
+}
 async function retryRead(operation,label){
  for(let attempt=0;attempt<6;attempt++){
   try{return await operation();}
@@ -55,10 +67,13 @@ async function write(label,account,method,args,expected=""){
  if(!entry){
  await command(["account","use",account]);
  const encoded=args.map(v=>typeof v==="string"?"cpstr#"+Buffer.from(v).toString("base64"):JSON.stringify(v));
- const output=await command(["write",address,method,"--rpc","https://studio.genlayer.com/api","--args",...encoded]);
+ const output=await command(["write",address,method,"--rpc","https://studio.genlayer.com/api","--args",...encoded],async hash=>{
+  entry={label,method,hash,verified:false};if(before)entry.before=before;
+  report.transactions.push(entry);await save();console.log(`${label}|${hash}|SUBMITTED_AND_SAVED`);
+ });
  const hash=output.match(/Write Transaction Hash:\s*(0x[0-9a-fA-F]{64})/)?.[1];
  if(!hash)throw Error(`${label}: no transaction hash returned; inspect network before retry`);
- entry={label,method,hash,verified:false};if(before)entry.before=before;report.transactions.push(entry);await save();
+ if(!entry||entry.hash!==hash)throw Error("Submitted transaction hash could not be reconciled");
  }
  const hash=entry.hash;
  console.log(`${label}|${hash}|WAITING_FOR_FINALITY`);
@@ -97,6 +112,18 @@ if(stage==="prepare"){
  }
  report.recovery=await read("get_recovery_state",[ids.cpRecovery]);
  console.log("ASSESSMENT_RECOVERY_AFTER",new Date((report.recovery.deadline+1)*1000).toISOString());
+}else if(stage==="recover-proposal-hash"){
+ const hash=process.argv[3];if(!/^0x[0-9a-fA-F]{64}$/.test(hash||""))throw Error("Provide observed proposal transaction hash");
+ const tx=await retryRead(()=>client.getTransaction({hash}),"orphan-proposal");
+ if(finalizedFailure(tx))throw Error("Orphan proposal is not a successful finalized transaction");
+ if(String(tx.to_address||tx.toAddress).toLowerCase()!==address.toLowerCase())throw Error("Wrong contract transaction");
+ if(!String(tx.data?.calldata?.readable||"").includes('"method":"propose_revision"'))throw Error("Wrong transaction method");
+ const candidate=decodeReturnedId(tx);
+ const p=await read("get_obligation",[candidate]);const life=await read("get_policy_lifecycle",[candidate]);
+ if(p.obligation_key!=="v4-successor"||life.parent_id!==ids.obNormal||life.revision_status!=="PENDING")throw Error("Unexpected proposal state");
+ if(report.transactions.some(t=>t.label==="propose-revision"))throw Error("Proposal already recorded");
+ report.transactions.push({label:"propose-revision",method:"propose_revision",hash,verified:true,returnedId:candidate,recoveredFromHistory:true});
+ ids.revAccepted=candidate;await save();console.log("ORPHAN_PROPOSAL_RECONCILED",hash,candidate);
 }else if(stage==="exercise"){
  const oid=ids.obNormal;if(oid===undefined)throw Error("Run prepare first");
  const candidate=await create("revAccepted","propose-revision",A,"propose_revision",[oid,...policy("v4-successor")]);
@@ -123,6 +150,46 @@ if(stage==="prepare"){
  if(final.status!=="FINALIZED")throw Error("Successor checkpoint not finalized");
  report.normalOutcome={final_state:final.final_state,challenge_decision:final.challenge_decision};
  report.readbacks.normal=await snapshot();
+}else if(stage==="challenge-live"){
+ // The first five-minute challenge window elapsed during assessment consensus.
+ // Preserve that failed challenge, finalize its provisional result, then use
+ // separately consented one-hour terms. Never alter an accepted policy in place.
+ const original=await read("get_checkpoint",[ids.cpNormal]);
+ if(original.status!=="FINALIZED")await write("finalize-successor-unchallenged",A,"finalize_checkpoint",[ids.cpNormal]);
+ report.readbacks.successorFinal=await read("get_checkpoint",[ids.cpNormal]);
+ const terms=policy("v4-long-challenge");terms[7]=3600;
+ const oid=await create("obChallenge","add-long-challenge",A,"add_obligation",[ids.agreement,...terms]);
+ const digest=(await read("get_obligation",[oid])).terms_digest;
+ await write("accept-long-challenge",B,"accept_obligation",[oid,digest]);
+ let cid=report.activeChallengeCheckpoint??await create("cpChallenge","open-long-challenge",A,"open_due_checkpoint",[oid]);
+ let cp=await read("get_checkpoint",[cid]);
+ // Interrupted tooling can miss an anchored observation slot. Retain its
+ // finalized UNRESOLVED evidence and wait for the next slot; never assess it.
+ while(cp.status==="FINALIZED"&&cp.challenge_decision==="MISSED_SCHEDULE"){
+  report.readbacks["missedChallengeSlot-"+cid]=cp;await save();
+  const p=await read("get_obligation",[oid]);
+  if(p.open_checkpoint_id){cid=p.open_checkpoint_id;cp=await read("get_checkpoint",[cid]);break;}
+  while(Date.now()/1000<p.next_due_at){console.log("NEXT_SLOT_WAIT",Math.ceil(p.next_due_at-Date.now()/1000));await new Promise(r=>setTimeout(r,15000));}
+  const key="cpChallengeSlot"+p.sequence;
+  cid=await create(key,"open-long-challenge-slot-"+p.sequence,A,"open_due_checkpoint",[oid]);
+  cp=await read("get_checkpoint",[cid]);
+ }
+ report.activeChallengeCheckpoint=cid;await save();
+ while(Date.now()/1000<cp.window_end){console.log("OBSERVATION_WAIT",Math.ceil(cp.window_end-Date.now()/1000));await new Promise(r=>setTimeout(r,15000));}
+ if((await read("get_checkpoint",[cid])).status==="OPEN")await write("assess-long-challenge",A,"assess_checkpoint",[cid]);
+ await write("submit-long-challenge",B,"submit_challenge",[cid,challengeUrl,"ClausePilot V4 Demo API",challengeDigest]);
+ await write("adjudicate-long-challenge",A,"adjudicate_challenge",[cid]);
+ await write("finalize-long-challenge",A,"finalize_checkpoint",[cid]);
+ const final=await read("get_checkpoint",[cid]);
+ if(final.status!=="FINALIZED")throw Error("Challenge checkpoint not finalized");
+ report.normalOutcome={final_state:final.final_state,challenge_decision:final.challenge_decision};
+ report.readbacks.normal=await snapshot();
+}else if(stage==="recover-long-challenge"){
+ const cid=report.activeChallengeCheckpoint;if(!cid)throw Error("No active challenge test checkpoint");
+ const state=await read("get_recovery_state",[cid]);
+ if(!state.eligible)throw Error("Challenge test recovery is not yet eligible");
+ await write("recover-failed-long-assessment",B,"expire_checkpoint",[cid]);
+ report.readbacks.failedLongRecovery=await read("get_checkpoint",[cid]);
 }else if(stage==="retry-assessment"){
  const previous=report.transactions.find(t=>t.label==="assess-successor");
  if(previous&&!previous.verified){
