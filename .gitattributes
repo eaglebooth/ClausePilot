@@ -1,0 +1,2 @@
+# Contract deployment parity is byte-exact; keep checkout line endings stable.
+contracts/ClausePilot.py text eol=lf

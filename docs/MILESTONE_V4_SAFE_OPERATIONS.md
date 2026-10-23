@@ -97,6 +97,22 @@ Chrome binary and `CLAUSEPILOT_WEB_URL` to the site to check. Run
 
 ## Exact reviewer path
 
+Production verification completed on October 23, 2026:
+
+- Web source commit:
+  [`da785731ae342e01f4335b63736224839345295c`](https://github.com/eaglebooth/ClausePilot/commit/da785731ae342e01f4335b63736224839345295c).
+- [Immutable V3 technical baseline → web release comparison](https://github.com/eaglebooth/ClausePilot/compare/1e098b306edb191c667ae3dd7991d6cb58066c96...da785731ae342e01f4335b63736224839345295c).
+- [Production deployment](https://clausepilot-lbujvo82s-eaglebooth197-5212s-projects.vercel.app),
+  aliased to [clausepilot-seven.vercel.app](https://clausepilot-seven.vercel.app).
+- The full read-only Chrome smoke test passed on the public production alias,
+  including accepted revision comparison and MAJORITY_DISAGREE receipt inspection.
+  No wallet, write RPC, browser page error or mobile horizontal overflow occurred.
+- Deployment parity was rechecked: version/schema valid, 42,755 bytes, matching
+  SHA-256 `590d0682d33bdb057feddd31a7cc8a03a01cb5df6a4c24fbd5acdb6b9e0f9e85`.
+  `.gitattributes` pins LF for the contract to prevent Windows checkout line-ending
+  conversion from creating false raw-byte mismatches. Contract content/blob and
+  deployed code remain unchanged by the web completion.
+
 1. Open [the evidence page](https://clausepilot-seven.vercel.app/evidence).
 2. Open Monitor; do not connect a wallet for inspection.
 3. Click **Load finalized successor**. Confirm obligation 2/checkpoint 1 is
