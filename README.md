@@ -1,10 +1,12 @@
 # ClausePilot
 
-V4 implementation is ready for a fresh deployment: bounded checkpoint recovery
-and bilateral policy revisions. See
-[V4 milestone notes](docs/MILESTONE_V4_RECOVERY_REVISIONS.md) and
-[deployment checklist](docs/V4_DEPLOYMENT_CHECKLIST.md). Production remains V3
-until the new contract completes source/schema verification and live tests.
+V4 constrained web release: bounded checkpoint recovery, bilateral policy
+revisions and failure-aware operations on the existing contract. **AI assessment
+and adjudication writes are paused in the web UI and shared write service**
+because repeated consensus is not yet reliable. This is not a full AI-jury rollout.
+See [submission and reviewer guide](docs/MILESTONE_V4_SAFE_OPERATIONS.md),
+[live evidence](docs/V4_CLOSED_LIVE_EVIDENCE.md) and
+[V4 contract notes](docs/MILESTONE_V4_RECOVERY_REVISIONS.md).
 
 ClausePilot is a GenLayer temporal commercial assurance primitive. V3 binds a
 bounded obligation to 2–4 approved public sources, a corroboration threshold,
@@ -12,10 +14,13 @@ counterparty challenge policy and sealed checkpoint schedule. Validators
 interpret evidence; deterministic code controls consent, provenance, deadlines,
 replay protection and final standing.
 
-V3 is live on StudioNet at
-[`0x0350...12A4`](https://explorer-studio.genlayer.com/address/0x0350c736033bE5b0e66a15512475D12d573412A4)
-and is served by [clausepilot-seven.vercel.app](https://clausepilot-seven.vercel.app).
-The historical V2 deployment remains documented for comparison only.
+The constrained V4 web release targets the existing StudioNet deployment
+[`0xb5E3...9DfD`](https://explorer-studio.genlayer.com/address/0xb5E3D9F50e40CB599629048dE1f58427e5c49DfD)
+at [clausepilot-seven.vercel.app](https://clausepilot-seven.vercel.app).
+The [evidence page](https://clausepilot-seven.vercel.app/evidence) provides a
+wallet-free reviewer path. Historical V3 address
+`0x0350c736033bE5b0e66a15512475D12d573412A4` and older deployments remain
+documented as technical comparisons, not the current web target.
 
 ## Why GenLayer
 
@@ -44,18 +49,24 @@ npm run build
 
 ## Configuration
 
-Copy `.env.example` to `.env.local` after deploying the remediated source, then replace the zero address with that fresh address. The repository intentionally has no historical contract fallback, so the updated frontend cannot silently write its new ABI to the superseded V1 deployment.
+Copy `.env.example` to `.env.local`. It points to the reviewed existing V4
+StudioNet contract; no further deployment is needed for this web completion.
+The frontend requires version 4, consent schema `recovery-revisions-v1` and
+consensus schema `closed-evidence-v1`. There is no historical-address fallback.
 
 ## Public methods
 
 Writes: `register_agreement`, `accept_agreement`, `add_obligation`,
 `accept_obligation`, `open_due_checkpoint`, `assess_checkpoint`,
 `submit_challenge`, `adjudicate_challenge`, `finalize_checkpoint`,
-`close_obligation`.
+`close_obligation`, `expire_checkpoint`, `propose_revision`, `accept_revision`,
+`cancel_revision`. The deployed ABI retains both AI methods; the web release
+blocks `assess_checkpoint` and `adjudicate_challenge` rather than claiming they
+were removed from the contract.
 
 Views: `get_contract_version`, `get_agreement`, `get_obligation`,
-`get_checkpoint`, `get_totals`. The upgraded frontend requires the V3 schema
-handshake before enabling writes.
+`get_checkpoint`, `get_totals`, `get_policy_lifecycle`, `get_recovery_state`.
+The upgraded frontend requires the V4 schema handshake before enabling writes.
 
 See [SPEC.md](SPEC.md) and [docs/THREAT_MODEL.md](docs/THREAT_MODEL.md) for exact claims and limitations.
 

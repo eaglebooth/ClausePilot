@@ -1,7 +1,10 @@
 # V4 closed-consensus deployment verification
 
-Updated: October 23, 2026. Status: production rollout blocked by inconsistent
-assessment consensus in a second observation. Production remains V3.
+Updated: October 23, 2026. Status: unrestricted AI rollout blocked by inconsistent
+assessment consensus in a second observation. The later
+[constrained web release](MILESTONE_V4_SAFE_OPERATIONS.md) uses this existing
+contract with assessment/adjudication web writes paused. It does not remove the
+full-lifecycle gate or reinterpret the failed observation below as success.
 
 ## Exact deployment
 
@@ -72,7 +75,8 @@ with `verified: false` are pending, not successful evidence.
 - One successful assessment does not establish reliable consensus across later
   observations. Diagnose model-output validity before retrying or changing
   validation. Do not weaken consequential-field agreement to obtain a pass.
-- Production still uses the V3 contract until these gates pass.
+- Unrestricted AI operations remain gated. The constrained web release only
+  exposes reviewed deterministic operations; it is not completion of these gates.
 - Synthetic fixtures share one publisher despite using distinct hosting origins;
   they do not prove independent organizations or real service uptime.
 - No third-party audit or formal verification is claimed. Live challenge-timeout

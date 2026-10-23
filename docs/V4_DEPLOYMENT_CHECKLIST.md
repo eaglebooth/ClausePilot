@@ -1,5 +1,12 @@
 # V4 deployment handoff
 
+**October 23 update:** the replacement at
+`0xb5E3D9F50e40CB599629048dE1f58427e5c49DfD` is already deployed and source-matched.
+The owner requested no further contract deployment. The full AI lifecycle gate
+below is not complete; the web completion instead ships a constrained release
+with assessment/adjudication paused. See [current release scope](MILESTONE_V4_SAFE_OPERATIONS.md).
+The checklist and V3 fallback discussion below record the original full-rollout plan.
+
 1. In GenLayer Studio, select StudioNet.
 2. Deploy the complete current `contracts/ClausePilot.py`; constructor takes no arguments.
 3. Return the newly deployed address to the project owner workflow.

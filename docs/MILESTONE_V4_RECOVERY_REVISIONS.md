@@ -5,7 +5,9 @@ Status: replacement deployed at `0xb5E3D9F50e40CB599629048dE1f58427e5c49DfD`;
 source parity and deterministic recovery/revision controls verified. One successor
 assessment and unchallenged finalization succeeded, but a second observation
 finalized MAJORITY_DISAGREE with leader INVALID_MODEL_OUTPUT packets. Rollout is
-blocked pending diagnosis; challenge/adjudication are not verified. Production still uses V3. See
+blocked pending diagnosis; challenge/adjudication are not verified. The later
+[constrained web release](MILESTONE_V4_SAFE_OPERATIONS.md) uses this same V4
+deployment with AI web writes paused. See
 [replacement evidence](V4_CLOSED_LIVE_EVIDENCE.md). The first V4 deployment passed
 deterministic revision/recovery checks but failed assessment consensus twice;
 that [historical incident evidence](V4_LIVE_EVIDENCE.md) remains available.
@@ -101,4 +103,7 @@ rejection, competing revisions and accepted successor monitoring. Timeout proof
 requires actual elapsed network time. Record direct Explorer transaction links
 and post-state reads before moving production to V4.
 
-V3 remains the production deployment until this gate is complete.
+The original full-rollout plan retained V3 until this gate completed. The current
+constrained web release uses the existing V4 deployment only for reviewed
+deterministic operations, with the unverified AI write paths paused in the UI and
+shared service. This does not claim that the gate above has completed.
